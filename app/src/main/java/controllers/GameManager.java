@@ -4,7 +4,8 @@ import android.widget.ImageView;
 
 import com.example.class22b_and_assignement2.R;
 
-public class GameManager {
+
+public class GameManager implements ControllerPacmanable{
     public static final int COLUMNS = 3;
     public static final int ROWS = 5;
 
@@ -18,12 +19,19 @@ public class GameManager {
     private int score = 0;
     private int lives = LIVES;
 
+    private static GameManager gameManagerInstance = null;
 
     /**
      * default constructor
      */
-    public GameManager() {
-        initGrid();
+    private GameManager() {
+    }
+
+    public static ControllerPacmanable getInstance() {
+        if (gameManagerInstance == null){
+            gameManagerInstance = new GameManager();
+        }
+        return gameManagerInstance;
     }
 
     private void initGrid() {
@@ -40,5 +48,10 @@ public class GameManager {
                 }
             }
         }
+    }
+
+    @Override
+    public void changeDirection(Pacmanable entity, eDirection edirection) {
+
     }
 }
