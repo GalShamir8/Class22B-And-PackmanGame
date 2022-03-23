@@ -2,6 +2,7 @@ package com.example.class22b_and_assignement2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -35,11 +36,13 @@ public class Activity_main extends AppCompatActivity {
 
     private void setGridView() {
         String gridPrefix = "main_LBL_grid";
+        Resources resources = getResources();
         for (int rowIndex = 0; rowIndex < ROWS; rowIndex++) {
             for (int colIndex = 0; colIndex < COLUMNS; colIndex++) {
                 String imgResourceName = gridPrefix + rowIndex + colIndex;
-                // TODO: 22/03/2022 Add resolve img by name 
-//                gameGrid[rowIndex][colIndex] = (ImageView) findViewById(R.drawable)
+                int imageId = resources.getIdentifier(imgResourceName, "id",
+                        this.getPackageName());
+                gameGrid[rowIndex][colIndex] = findViewById(imageId);
             }
         }
     }
