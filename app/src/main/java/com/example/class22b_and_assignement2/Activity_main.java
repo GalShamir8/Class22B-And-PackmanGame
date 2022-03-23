@@ -47,14 +47,13 @@ public class Activity_main extends AppCompatActivity {
         }
     }
 
-
     private void initGrid() {
         for (int rowIndex = 0; rowIndex < ROWS; rowIndex++) {
             for (int colIndex = 0; colIndex < COLUMNS; colIndex++) {
-                if(rowIndex == PLAYER_START_INDEX[0] && colIndex == PLAYER_START_INDEX[1]){
+                if(gameManager.checkPlayerStartIndex(rowIndex, colIndex)){
                     // TODO: 21/03/2022 Add player img
                     gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
-                }else if(rowIndex == RIVAL_START_INDEX[0] && colIndex == RIVAL_START_INDEX[1]){
+                }else if(gameManager.checkRivalStartIndex(rowIndex, colIndex)){
                     // TODO: 21/03/2022 Add rival img
                     gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
                 }else {

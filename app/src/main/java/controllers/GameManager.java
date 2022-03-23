@@ -54,4 +54,14 @@ public class GameManager implements ControllerPacmanable{
     public void changeDirection(Pacmanable entity, eDirection edirection) {
 
     }
+
+    @Override
+    public boolean checkPlayerStartIndex(int row, int col) {
+        return row == PLAYER_START_INDEX[0] && col == PLAYER_START_INDEX[1];
+    }
+
+    @Override
+    public boolean checkRivalStartIndex(int row, int col) {
+        return row == RIVAL_START_INDEX[0] && col == RIVAL_START_INDEX[1];
+    }
 }
