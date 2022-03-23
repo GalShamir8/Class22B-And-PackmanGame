@@ -37,8 +37,8 @@ public class GameManager implements ControllerPacmanable{
 
 
     @Override
-    public void changeDirection(Pacmanable entity, eDirection edirection) {
-
+    public void changeDirection(Pacmanable entity, eDirection direction) {
+        entity.setDirection(direction);
     }
 
     @Override

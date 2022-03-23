@@ -19,6 +19,11 @@ public class Activity_main extends AppCompatActivity {
 
     private ControllerPacmanable gameManager = GameManager.getInstance();
 
+    private ImageView main_ING_up_arrow;
+    private ImageView main_ING_down_arrow;
+    private ImageView main_ING_right_arrow;
+    private ImageView main_ING_left_arrow;
+
     private Timer timer;
     eTimerStatus timerStatus = eTimerStatus.OFF;
     private final Runnable tickTask = new Runnable() {
@@ -42,6 +47,15 @@ public class Activity_main extends AppCompatActivity {
 
     private void setViews() {
         setGridView();
+        setControls();
+    }
+
+    private void setControls() {
+        main_ING_up_arrow = findViewById(R.id.main_ING_up_arrow);
+        main_ING_down_arrow = findViewById(R.id.main_ING_down_arrow);
+        main_ING_right_arrow = findViewById(R.id.main_ING_right_arrow);
+        main_ING_left_arrow = findViewById(R.id.main_ING_left_arrow);
+
     }
 
     private void setGridView() {
@@ -107,7 +121,6 @@ public class Activity_main extends AppCompatActivity {
         }
 
     }
-
 
     @Override
     protected void onStop() {

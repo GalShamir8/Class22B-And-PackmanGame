@@ -4,9 +4,9 @@ public interface ControllerPacmanable {
     /**
      *
      * @param entity - player or rival to operate function on
-     * @param edirection - desire direction to update
+     * @param direction - desire direction to update
      */
-    void changeDirection(Pacmanable entity, eDirection edirection);
+    void changeDirection(Pacmanable entity, eDirection direction);
 
     int getRows();
 
