@@ -6,6 +6,8 @@ import com.example.class22b_and_assignement2.R;
 
 
 public class GameManager implements ControllerPacmanable{
+    private static final long DELAY = 1000;
+
     public static final int COLUMNS = 3;
     public static final int ROWS = 5;
 
@@ -14,7 +16,6 @@ public class GameManager implements ControllerPacmanable{
 
     private static final int LIVES = 3;
 
-    private ImageView[][] gameGrid = new ImageView[ROWS][COLUMNS];
 
     private int score = 0;
     private int lives = LIVES;
@@ -34,21 +35,6 @@ public class GameManager implements ControllerPacmanable{
         return gameManagerInstance;
     }
 
-    private void initGrid() {
-        for (int rowIndex = 0; rowIndex < ROWS; rowIndex++) {
-            for (int colIndex = 0; colIndex < COLUMNS; colIndex++) {
-                if(rowIndex == PLAYER_START_INDEX[0] && colIndex == PLAYER_START_INDEX[1]){
-                    // TODO: 21/03/2022 Add player img 
-                    gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
-                }else if(rowIndex == RIVAL_START_INDEX[0] && colIndex == RIVAL_START_INDEX[1]){
-                    // TODO: 21/03/2022 Add rival img
-                    gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
-                }else {
-                    gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
-                }
-            }
-        }
-    }
 
     @Override
     public void changeDirection(Pacmanable entity, eDirection edirection) {
@@ -63,5 +49,19 @@ public class GameManager implements ControllerPacmanable{
     @Override
     public boolean checkRivalStartIndex(int row, int col) {
         return row == RIVAL_START_INDEX[0] && col == RIVAL_START_INDEX[1];
+    }
+
+    @Override
+    public void tick() {
+
+    }
+
+    public int getRows(){ return ROWS; }
+
+    public int getCols(){ return COLUMNS; }
+
+    @Override
+    public long getDelay() {
+        return DELAY;
     }
 }

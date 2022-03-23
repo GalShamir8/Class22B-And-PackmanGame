@@ -8,8 +8,17 @@ public interface ControllerPacmanable {
      */
     void changeDirection(Pacmanable entity, eDirection edirection);
 
+    int getRows();
+
+    int getCols();
+
+
+    long getDelay();
+
     boolean checkPlayerStartIndex(int row, int col);
 
     boolean checkRivalStartIndex(int row, int col);
+
+    void tick();
 }
 
