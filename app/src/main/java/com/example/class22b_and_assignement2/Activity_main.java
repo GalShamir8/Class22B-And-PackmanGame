@@ -11,6 +11,7 @@ import java.util.TimerTask;
 
 import controllers.ControllerPacmanable;
 import controllers.GameManager;
+import controllers.eTimerStatus;
 
 public class Activity_main extends AppCompatActivity {
 
@@ -19,13 +20,13 @@ public class Activity_main extends AppCompatActivity {
     private ControllerPacmanable gameManager = GameManager.getInstance();
 
     private Timer timer;
+    eTimerStatus timerStatus = eTimerStatus.OFF;
     private final Runnable tickTask = new Runnable() {
         @Override
         public void run() {
-            gameManager.tick();
+            tick();
         }
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,9 @@ public class Activity_main extends AppCompatActivity {
         }
     }
 
+    private void tick() {
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -86,14 +90,24 @@ public class Activity_main extends AppCompatActivity {
     }
 
     private void startTimer() {
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(tickTask);
-            }
-        }, 0, gameManager.getDelay());
+        switch (timerStatus) {
+            case OFF:
+            case STOP:
+            case PAUSE:
+                timer = new Timer();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(tickTask);
+                    }
+                }, 0, gameManager.getDelay());
+                break;
+            case RUNNING:
+                break;
+        }
+
     }
+
 
     @Override
     protected void onStop() {
@@ -102,7 +116,17 @@ public class Activity_main extends AppCompatActivity {
     }
 
     private void stopTimer() {
-        timer.cancel();
+        switch (timerStatus){
+            case RUNNING:
+                timer.cancel();
+                break;
+            case OFF:
+                break;
+            case PAUSE:
+                break;
+            case STOP:
+                break;
+        }
     }
 
     @Override
@@ -114,6 +138,6 @@ public class Activity_main extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        startTimer();
+        stopTimer();
     }
 }
