@@ -57,6 +57,13 @@ public class GameManager implements ControllerPacmanable{
         return LIVES;
     }
 
+    @Override
+    public eDirection getRandomDirection() {
+        eDirection[] directionArray = eDirection.values();
+        int randomIndex = (int) (Math.random() * (directionArray.length));
+        return directionArray[randomIndex];
+    }
+
     public int getRows(){ return ROWS; }
 
     public int getCols(){ return COLUMNS; }

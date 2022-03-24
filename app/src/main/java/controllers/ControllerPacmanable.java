@@ -14,5 +14,6 @@ public interface ControllerPacmanable {
     boolean checkRivalStartIndex(int row, int col);
     Pacmanable getPlayer();
     int getLivesStart();
+    eDirection getRandomDirection();
 }
 
