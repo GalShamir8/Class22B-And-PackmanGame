@@ -41,6 +41,16 @@
                 android:layout_height="30dp"
                 android:contentDescription="@string/live"
                 android:src="@drawable/heart" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/main_LBL_clock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/default_timer"
+                />
         </LinearLayout>
 
         <include layout="@layout/grid_view" />

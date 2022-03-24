@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,6 +22,8 @@ public class Activity_main extends AppCompatActivity {
     private  ImageView[] hearts;
     private ImageView[][] gameGrid;
     private ControllerPacmanable gameManager = GameManager.getInstance();
+    private MaterialTextView main_LBL_clock;
+    private int clockCounter = 0;
 
     private Timer timer;
     eTimerStatus timerStatus = eTimerStatus.OFF;
@@ -42,9 +47,15 @@ public class Activity_main extends AppCompatActivity {
     }
 
     private void setViews() {
-        setHearts();
+        setTopView();
         setGridView();
         setControls();
+    }
+
+    private void setTopView() {
+        setHearts();
+        main_LBL_clock = findViewById(R.id.main_LBL_clock);
+        main_LBL_clock.setText(R.string.default_timer);
     }
 
     private void setHearts() {
@@ -57,6 +68,7 @@ public class Activity_main extends AppCompatActivity {
                     this.getPackageName());
             hearts[i] = findViewById(imageId);
             hearts[i].setImageResource(R.drawable.heart);
+            hearts[i].setVisibility(View.VISIBLE);
         }
     }
 
@@ -113,6 +125,42 @@ public class Activity_main extends AppCompatActivity {
     }
 
     private void tick() {
+        ++clockCounter;
+        renderUI();
+    }
+
+    private void renderUI() {
+        changeDirection(gameManager.getRival(), gameManager.getRandomDirection());
+        if(gameManager.isCollision()){
+            handleCollision();
+        }
+        gameManager.executeMove();
+        setLivesView();
+        setScoreView();
+    }
+
+    private void setScoreView() {
+    }
+
+    private void setLivesView() {
+        for(int i = gameManager.getLivesStart() ; i > gameManager.getLives(); i--){
+            hearts[i - 1].setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+    private void handleCollision() {
+        try{
+            gameManager.reduceLives();
+            gameManager.updateScore(ControllerPacmanable.SCORE_NEGATIVE_FACTOR);
+        }catch (Exception e){
+            finishGame(e.getMessage());
+        }
+    }
+
+    private void finishGame(String message) {
+        // TODO: 24/03/2022 add toast message
+        finish();
     }
 
     @Override

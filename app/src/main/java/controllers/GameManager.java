@@ -23,7 +23,9 @@ public class GameManager implements ControllerPacmanable{
 
     private GameManager() {
         player = new Player(PLAYER_START_INDEX[0], PLAYER_START_INDEX[1], idGenerator());
+        player.setDirection(eDirection.UP);
         rival = new Player(RIVAL_START_INDEX[0], RIVAL_START_INDEX[1], idGenerator());
+        rival.setDirection(eDirection.LEFT);
     }
 
     private int idGenerator() {
@@ -53,6 +55,11 @@ public class GameManager implements ControllerPacmanable{
     }
 
     @Override
+    public Pacmanable getRival() {
+        return rival;
+    }
+
+    @Override
     public int getLivesStart() {
         return LIVES;
     }
@@ -62,6 +69,41 @@ public class GameManager implements ControllerPacmanable{
         eDirection[] directionArray = eDirection.values();
         int randomIndex = (int) (Math.random() * (directionArray.length));
         return directionArray[randomIndex];
+    }
+
+    @Override
+    public boolean isCollision() {
+        int playerRowIndex = getPlayerNextRowIndex();
+        int playerColIndex = getPlayerNextColIndex();
+        int rivalRowIndex = getRivalNextRowIndex();
+        int rivalColIndex = getRivalNextColIndex();
+        return playerRowIndex == rivalRowIndex && playerColIndex == rivalColIndex;
+    }
+
+    private int getRivalNextColIndex() {
+        return 0;
+    }
+
+    private int getRivalNextRowIndex() {
+        return 0;
+    }
+
+    private int getPlayerNextColIndex() {
+        return 0;
+    }
+
+    private int getPlayerNextRowIndex() {
+        return 0;
+    }
+
+    @Override
+    public void executeMove() {
+
+    }
+
+    @Override
+    public int getLives() {
+        return lives;
     }
 
     public int getRows(){ return ROWS; }
