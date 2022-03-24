@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.ArrayList;
+
 import models.Pacmanable;
 
 public interface ControllerPacmanable {
@@ -20,5 +22,6 @@ public interface ControllerPacmanable {
     boolean isCollision();
     void executeMove();
     int getLives();
+    ArrayList<Pacmanable> getAllPlayers();
 }
 

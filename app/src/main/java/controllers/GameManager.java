@@ -1,17 +1,19 @@
 package controllers;
 
+import java.util.ArrayList;
+
 import models.Pacmanable;
 import models.Player;
 
 
 public class GameManager implements ControllerPacmanable{
     private static int id = 0;
-    private static final long DELAY = 1000;
+    private static final long DELAY = 5000;
     public static final int COLUMNS = 3;
     public static final int ROWS = 5;
     private static final int LIVES = 3;
-    public static final int[] PLAYER_START_INDEX = {ROWS, (int)COLUMNS/2};
-    public static final int[] RIVAL_START_INDEX = {0, ROWS};
+    public static final int[] PLAYER_START_INDEX = {ROWS - 1, (int)COLUMNS/2 + 1};
+    public static final int[] RIVAL_START_INDEX = {0, COLUMNS - 1};
 
     private int score = 0;
     private int lives = LIVES;
@@ -22,9 +24,9 @@ public class GameManager implements ControllerPacmanable{
     private static GameManager gameManagerInstance = null;
 
     private GameManager() {
-        player = new Player(PLAYER_START_INDEX[0], PLAYER_START_INDEX[1], idGenerator());
+        player = new Player(PLAYER_START_INDEX[0], PLAYER_START_INDEX[1], idGenerator(), "batman_");
         player.setDirection(eDirection.UP);
-        rival = new Player(RIVAL_START_INDEX[0], RIVAL_START_INDEX[1], idGenerator());
+        rival = new Player(RIVAL_START_INDEX[0], RIVAL_START_INDEX[1], idGenerator(), "joker_");
         rival.setDirection(eDirection.LEFT);
     }
 
@@ -73,21 +75,21 @@ public class GameManager implements ControllerPacmanable{
 
     @Override
     public boolean isCollision() {
-        int[] playerNextIndex = getPlayerNextIndex();
-        int[] rivalNextIndex = getRivalNextIndex();
+        int[] playerNextIndex = getPlayerNextPos();
+        int[] rivalNextIndex = getRivalNextPos();
         return playerNextIndex[0] == rivalNextIndex[0] && playerNextIndex[1] == rivalNextIndex[1];
     }
 
 
-    private int[] getRivalNextIndex() {
+    private int[] getRivalNextPos() {
         int[] newPos = new int[2];
-        int[] curPos = player.getPosition();
-        switch (player.getDirection()){
+        int[] curPos = rival.getPosition();
+        switch (rival.getDirection()){
             case UP:
                 // columns remains as their old value
                 newPos[1] = curPos[1];
                 // in case of out of border move (first row)
-                if (curPos[1] == 0){
+                if (curPos[0] == 0){
                     newPos[0] = ROWS - 1;
                 }else{
                     newPos[0] = curPos[0] - 1;
@@ -96,7 +98,7 @@ public class GameManager implements ControllerPacmanable{
             case DOWN:
                 // columns remains as their old value
                 // in case of out of border move (last row) - special case -> return to start point
-                if (curPos[1] == ROWS - 1){
+                if (curPos[0] == ROWS - 1){
                     newPos = RIVAL_START_INDEX;
                 }else{
                     newPos[1] = curPos[1];
@@ -107,7 +109,7 @@ public class GameManager implements ControllerPacmanable{
                 // rows remains as their old value
                 newPos[0] = curPos[0];
                 // in case of out of border move (last column)
-                if (curPos[0] == COLUMNS - 1){
+                if (curPos[1] == COLUMNS - 1){
                     newPos[1] = 0;
                 }else{
                     newPos[1] = curPos[1] + 1;
@@ -117,7 +119,7 @@ public class GameManager implements ControllerPacmanable{
                 // rows remains as their old value
                 newPos[0] = curPos[0];
                 // in case of out of border move (first column)
-                if (curPos[0] == 0){
+                if (curPos[1] == 0){
                     newPos[1] = COLUMNS - 1;
                 }else{
                     newPos[1] = curPos[1] - 1;
@@ -127,7 +129,7 @@ public class GameManager implements ControllerPacmanable{
         return newPos;
     }
 
-    private int[] getPlayerNextIndex() {
+    private int[] getPlayerNextPos() {
         int[] newPos = new int[2];
         int[] curPos = player.getPosition();
         switch (player.getDirection()){
@@ -135,7 +137,7 @@ public class GameManager implements ControllerPacmanable{
                 // columns remains as their old value
                 newPos[1] = curPos[1];
                 // in case of out of border move (first row)
-                if (curPos[1] == 0){
+                if (curPos[0] == 0){
                     newPos[0] = ROWS - 1;
                 }else{
                     newPos[0] = curPos[0] - 1;
@@ -155,7 +157,7 @@ public class GameManager implements ControllerPacmanable{
                 // rows remains as their old value
                 newPos[0] = curPos[0];
                 // in case of out of border move (last column)
-                if (curPos[0] == COLUMNS - 1){
+                if (curPos[1] == COLUMNS - 1){
                     newPos[1] = 0;
                 }else{
                     newPos[1] = curPos[1] + 1;
@@ -165,7 +167,7 @@ public class GameManager implements ControllerPacmanable{
                 // rows remains as their old value
                 newPos[0] = curPos[0];
                 // in case of out of border move (first column)
-                if (curPos[0] == 0){
+                if (curPos[1] == 0){
                     newPos[1] = COLUMNS - 1;
                 }else{
                     newPos[1] = curPos[1] - 1;
@@ -177,8 +179,8 @@ public class GameManager implements ControllerPacmanable{
 
     @Override
     public void executeMove() {
-        int[] playerNextPos = getPlayerNextIndex();
-        int[] rivalNextIndex = getRivalNextIndex();
+        int[] playerNextPos = getPlayerNextPos();
+        int[] rivalNextIndex = getRivalNextPos();
         if (isAddScore()){
             updateScore(ControllerPacmanable.SCORE_POSITIVE_FACTOR);
         }
@@ -187,12 +189,20 @@ public class GameManager implements ControllerPacmanable{
     }
 
     private boolean isAddScore() {
-        return getRivalNextIndex() == RIVAL_START_INDEX && rival.getPosition()[1] == COLUMNS - 1;
+        return getRivalNextPos() == RIVAL_START_INDEX && rival.getPosition()[1] == COLUMNS - 1;
     }
 
     @Override
     public int getLives() {
         return lives;
+    }
+
+    @Override
+    public ArrayList<Pacmanable> getAllPlayers() {
+        ArrayList<Pacmanable> players = new ArrayList<>();
+        players.add(player);
+        players.add(rival);
+        return players;
     }
 
     public int getRows(){ return ROWS; }

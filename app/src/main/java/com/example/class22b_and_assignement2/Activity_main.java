@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.google.android.material.textview.MaterialTextView;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -113,10 +114,16 @@ public class Activity_main extends AppCompatActivity {
             for (int colIndex = 0; colIndex < cols; colIndex++) {
                 if(gameManager.checkPlayerStartIndex(rowIndex, colIndex)){
                     // TODO: 21/03/2022 Add player img
-                    gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
+                    String prefix = "batman_";
+                    eDirection direction = gameManager.getPlayer().getDirection();
+                    int resId = getImageResourceByDirection(prefix, direction);
+                    gameGrid[rowIndex][colIndex].setImageResource(resId);
                 }else if(gameManager.checkRivalStartIndex(rowIndex, colIndex)){
                     // TODO: 21/03/2022 Add rival img
-                    gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
+                    String prefix = "joker_";
+                    eDirection direction = gameManager.getRival().getDirection();
+                    int resId = getImageResourceByDirection(prefix, direction);
+                    gameGrid[rowIndex][colIndex].setImageResource(resId);
                 }else {
                     gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
                 }
@@ -124,8 +131,16 @@ public class Activity_main extends AppCompatActivity {
         }
     }
 
+    private int getImageResourceByDirection(String prefix, eDirection direction) {
+        String name = prefix + direction.name().toLowerCase();
+        Resources resources = getResources();
+        return resources.getIdentifier(name, "drawable", this.getPackageName());
+    }
+
     private void tick() {
         ++clockCounter;
+        String clockAsStr = "" + clockCounter;
+        main_LBL_clock.setText(clockAsStr);
         renderUI();
     }
 
@@ -134,9 +149,29 @@ public class Activity_main extends AppCompatActivity {
         if(gameManager.isCollision()){
             handleCollision();
         }
+        setBackgroundInViews(gameManager.getAllPlayers());
         gameManager.executeMove();
         setLivesView();
         setScoreView();
+        setPlayerEntityView(gameManager.getPlayer());
+        setPlayerEntityView(gameManager.getRival());
+    }
+
+    private void setBackgroundInViews(ArrayList<Pacmanable> allPlayers) {
+        for (Pacmanable player: allPlayers){
+            int[] pos = player.getPosition();
+            gameGrid[pos[0]][pos[1]].setImageResource(R.drawable.game_background);
+        }
+    }
+
+    private void setPlayerEntityView(Pacmanable playerEntity) {
+        int[] pos = playerEntity.getPosition();
+        gameGrid[pos[0]][pos[1]].setImageResource(
+                getImageResourceByDirection(
+                        playerEntity.getName(),
+                        playerEntity.getDirection()
+                )
+        );
     }
 
     private void setScoreView() {
@@ -151,7 +186,7 @@ public class Activity_main extends AppCompatActivity {
 
     private void handleCollision() {
         try{
-            gameManager.reduceLives();
+            //gameManager.reduceLives();
             gameManager.updateScore(ControllerPacmanable.SCORE_NEGATIVE_FACTOR);
         }catch (Exception e){
             finishGame(e.getMessage());

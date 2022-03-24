@@ -4,6 +4,7 @@ import controllers.eDirection;
 
 public class Player implements Pacmanable {
     private int id;
+    private String name;
     private eDirection currentDirection = eDirection.UP;
     private int[] currentPosition;
 
@@ -12,10 +13,11 @@ public class Player implements Pacmanable {
      */
     public Player() { }
 
-    public Player(int row, int col, int id) {
+    public Player(int row, int col, int id, String name) {
         this.id = id;
         currentPosition = new int[2];
         setPosition(row, col);
+        this.name = name;
     }
 
     @Override
@@ -47,5 +49,10 @@ public class Player implements Pacmanable {
     @Override
     public int[] getPosition() {
         return currentPosition;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

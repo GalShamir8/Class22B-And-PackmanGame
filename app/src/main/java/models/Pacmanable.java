@@ -9,4 +9,5 @@ public interface Pacmanable {
     boolean equals(Pacmanable other);
     eDirection getDirection();
     int[] getPosition();
+    String getName();
 }
