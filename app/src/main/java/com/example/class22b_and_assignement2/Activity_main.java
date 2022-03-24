@@ -52,7 +52,7 @@ public class Activity_main extends AppCompatActivity {
         Resources resources = this.getResources();
         hearts = new ImageView[gameManager.getLivesStart()];
         for(int i = 0; i < hearts.length; i++){
-            String imgResourceName = prefix + i;
+            String imgResourceName = prefix + (i + 1);
             int imageId = resources.getIdentifier(imgResourceName, "id",
                     this.getPackageName());
             hearts[i] = findViewById(imageId);
@@ -80,7 +80,7 @@ public class Activity_main extends AppCompatActivity {
         int rows = gameManager.getRows();
         int cols = gameManager.getCols();
         gameGrid = new ImageView[rows][cols];
-        String gridPrefix = "main_LBL_grid";
+        String gridPrefix = "main_IMG_grid";
         Resources resources = getResources();
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (int colIndex = 0; colIndex < cols; colIndex++) {

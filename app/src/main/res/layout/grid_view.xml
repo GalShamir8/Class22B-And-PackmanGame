@@ -91,18 +91,21 @@
         android:layout_height="0dp"
         android:layout_weight="1">
         <ImageView
+            android:id="@+id/main_IMG_grid30"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/game_background"
             />
         <ImageView
+            android:id="@+id/main_IMG_grid31"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/game_background"
             />
         <ImageView
+            android:id="@+id/main_IMG_grid32"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -114,18 +117,21 @@
         android:layout_height="0dp"
         android:layout_weight="1">
         <ImageView
+            android:id="@+id/main_IMG_grid40"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/game_background"
             />
         <ImageView
+            android:id="@+id/main_IMG_grid41"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/game_background"
             />
         <ImageView
+            android:id="@+id/main_IMG_grid42"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
