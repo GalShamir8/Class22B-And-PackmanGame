@@ -6,8 +6,7 @@ import models.Rival;
 
 
 public class GameManager implements ControllerPacmanable{
-    private static final int PLAYERS_AMOUNT = 1;
-    private static final int RIVALS_AMOUNT = 1;
+
     private static final long DELAY = 1000;
     public static final int COLUMNS = 3;
     public static final int ROWS = 5;
@@ -54,6 +53,28 @@ public class GameManager implements ControllerPacmanable{
     public int getRows(){ return ROWS; }
 
     public int getCols(){ return COLUMNS; }
+
+    @Override
+    public int getScore() {
+        return score;
+    }
+
+    @Override
+    public void updateScore(int amount) {
+        if(amount < 0 && amount > score){
+            score = 0;
+        }else{
+            score += amount;
+        }
+    }
+
+    @Override
+    public void reduceLives() throws Exception {
+        if(LIVES - lives < 2){
+            throw new Exception("Game Over");
+        }
+        lives--;
+    }
 
     @Override
     public long getDelay() {
