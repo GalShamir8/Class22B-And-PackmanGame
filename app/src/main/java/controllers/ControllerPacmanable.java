@@ -4,6 +4,7 @@ import models.Pacmanable;
 
 public interface ControllerPacmanable {
     int SCORE_NEGATIVE_FACTOR = -5;
+    int SCORE_POSITIVE_FACTOR = 10;
     int getRows();
     int getCols();
     int getScore();

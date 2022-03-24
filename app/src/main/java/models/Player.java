@@ -38,4 +38,14 @@ public class Player implements Pacmanable {
         }
         return false;
     }
+
+    @Override
+    public eDirection getDirection() {
+        return currentDirection;
+    }
+
+    @Override
+    public int[] getPosition() {
+        return currentPosition;
+    }
 }

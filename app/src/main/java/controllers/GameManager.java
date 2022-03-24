@@ -73,32 +73,121 @@ public class GameManager implements ControllerPacmanable{
 
     @Override
     public boolean isCollision() {
-        int playerRowIndex = getPlayerNextRowIndex();
-        int playerColIndex = getPlayerNextColIndex();
-        int rivalRowIndex = getRivalNextRowIndex();
-        int rivalColIndex = getRivalNextColIndex();
-        return playerRowIndex == rivalRowIndex && playerColIndex == rivalColIndex;
+        int[] playerNextIndex = getPlayerNextIndex();
+        int[] rivalNextIndex = getRivalNextIndex();
+        return playerNextIndex[0] == rivalNextIndex[0] && playerNextIndex[1] == rivalNextIndex[1];
     }
 
-    private int getRivalNextColIndex() {
-        return 0;
+
+    private int[] getRivalNextIndex() {
+        int[] newPos = new int[2];
+        int[] curPos = player.getPosition();
+        switch (player.getDirection()){
+            case UP:
+                // columns remains as their old value
+                newPos[1] = curPos[1];
+                // in case of out of border move (first row)
+                if (curPos[1] == 0){
+                    newPos[0] = ROWS - 1;
+                }else{
+                    newPos[0] = curPos[0] - 1;
+                }
+                break;
+            case DOWN:
+                // columns remains as their old value
+                // in case of out of border move (last row) - special case -> return to start point
+                if (curPos[1] == ROWS - 1){
+                    newPos = RIVAL_START_INDEX;
+                }else{
+                    newPos[1] = curPos[1];
+                    newPos[0] = curPos[0] + 1;
+                }
+                break;
+            case RIGHT:
+                // rows remains as their old value
+                newPos[0] = curPos[0];
+                // in case of out of border move (last column)
+                if (curPos[0] == COLUMNS - 1){
+                    newPos[1] = 0;
+                }else{
+                    newPos[1] = curPos[1] + 1;
+                }
+                break;
+            case LEFT:
+                // rows remains as their old value
+                newPos[0] = curPos[0];
+                // in case of out of border move (first column)
+                if (curPos[0] == 0){
+                    newPos[1] = COLUMNS - 1;
+                }else{
+                    newPos[1] = curPos[1] - 1;
+                }
+                break;
+        }
+        return newPos;
     }
 
-    private int getRivalNextRowIndex() {
-        return 0;
-    }
-
-    private int getPlayerNextColIndex() {
-        return 0;
-    }
-
-    private int getPlayerNextRowIndex() {
-        return 0;
+    private int[] getPlayerNextIndex() {
+        int[] newPos = new int[2];
+        int[] curPos = player.getPosition();
+        switch (player.getDirection()){
+            case UP:
+                // columns remains as their old value
+                newPos[1] = curPos[1];
+                // in case of out of border move (first row)
+                if (curPos[1] == 0){
+                    newPos[0] = ROWS - 1;
+                }else{
+                    newPos[0] = curPos[0] - 1;
+                }
+                break;
+            case DOWN:
+                // columns remains as their old value
+                newPos[1] = curPos[1];
+                // in case of out of border move (last row)
+                if (curPos[1] == ROWS - 1){
+                    newPos[0] = 0;
+                }else{
+                    newPos[0] = curPos[0] + 1;
+                }
+                break;
+            case RIGHT:
+                // rows remains as their old value
+                newPos[0] = curPos[0];
+                // in case of out of border move (last column)
+                if (curPos[0] == COLUMNS - 1){
+                    newPos[1] = 0;
+                }else{
+                    newPos[1] = curPos[1] + 1;
+                }
+                break;
+            case LEFT:
+                // rows remains as their old value
+                newPos[0] = curPos[0];
+                // in case of out of border move (first column)
+                if (curPos[0] == 0){
+                    newPos[1] = COLUMNS - 1;
+                }else{
+                    newPos[1] = curPos[1] - 1;
+                }
+                break;
+        }
+        return newPos;
     }
 
     @Override
     public void executeMove() {
+        int[] playerNextPos = getPlayerNextIndex();
+        int[] rivalNextIndex = getRivalNextIndex();
+        if (isAddScore()){
+            updateScore(ControllerPacmanable.SCORE_POSITIVE_FACTOR);
+        }
+        player.setPosition(playerNextPos[0], playerNextPos[1]);
+        rival.setPosition(rivalNextIndex[0], rivalNextIndex[1]);
+    }
 
+    private boolean isAddScore() {
+        return getRivalNextIndex() == RIVAL_START_INDEX && rival.getPosition()[1] == COLUMNS - 1;
     }
 
     @Override
