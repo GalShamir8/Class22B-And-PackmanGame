@@ -16,6 +16,7 @@ import controllers.eDirection;
 import controllers.eTimerStatus;
 
 public class Activity_main extends AppCompatActivity {
+    private  ImageView[] hearts;
     private ImageView[][] gameGrid;
     private ControllerPacmanable gameManager = GameManager.getInstance();
 
@@ -41,8 +42,22 @@ public class Activity_main extends AppCompatActivity {
     }
 
     private void setViews() {
+        setHearts();
         setGridView();
         setControls();
+    }
+
+    private void setHearts() {
+        String prefix = "main_IMG_lives";
+        Resources resources = this.getResources();
+        hearts = new ImageView[gameManager.getLivesStart()];
+        for(int i = 0; i < hearts.length; i++){
+            String imgResourceName = prefix + i;
+            int imageId = resources.getIdentifier(imgResourceName, "id",
+                    this.getPackageName());
+            hearts[i] = findViewById(imageId);
+            hearts[i].setImageResource(R.drawable.heart);
+        }
     }
 
     private void setControls() {

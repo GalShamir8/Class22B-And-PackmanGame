@@ -52,6 +52,11 @@ public class GameManager implements ControllerPacmanable{
         return player;
     }
 
+    @Override
+    public int getLivesStart() {
+        return LIVES;
+    }
+
     public int getRows(){ return ROWS; }
 
     public int getCols(){ return COLUMNS; }
