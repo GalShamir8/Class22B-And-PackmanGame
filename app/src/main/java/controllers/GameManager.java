@@ -2,11 +2,10 @@ package controllers;
 
 import models.Pacmanable;
 import models.Player;
-import models.Rival;
 
 
 public class GameManager implements ControllerPacmanable{
-
+    private static int id = 0;
     private static final long DELAY = 1000;
     public static final int COLUMNS = 3;
     public static final int ROWS = 5;
@@ -23,8 +22,12 @@ public class GameManager implements ControllerPacmanable{
     private static GameManager gameManagerInstance = null;
 
     private GameManager() {
-        player = new Player();
-        rival = new Rival();
+        player = new Player(PLAYER_START_INDEX[0], PLAYER_START_INDEX[1], idGenerator());
+        rival = new Player(RIVAL_START_INDEX[0], RIVAL_START_INDEX[1], idGenerator());
+    }
+
+    private int idGenerator() {
+        return ++id;
     }
 
     public static ControllerPacmanable getInstance() {
@@ -33,7 +36,6 @@ public class GameManager implements ControllerPacmanable{
         }
         return gameManagerInstance;
     }
-
 
     @Override
     public boolean checkPlayerStartIndex(int row, int col) {
