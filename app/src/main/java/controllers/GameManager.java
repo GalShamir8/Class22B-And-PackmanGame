@@ -1,31 +1,31 @@
 package controllers;
 
-import android.widget.ImageView;
-
-import com.example.class22b_and_assignement2.R;
+import models.Pacmanable;
+import models.Player;
+import models.Rival;
 
 
 public class GameManager implements ControllerPacmanable{
+    private static final int PLAYERS_AMOUNT = 1;
+    private static final int RIVALS_AMOUNT = 1;
     private static final long DELAY = 1000;
-
     public static final int COLUMNS = 3;
     public static final int ROWS = 5;
-
+    private static final int LIVES = 3;
     public static final int[] PLAYER_START_INDEX = {ROWS, (int)COLUMNS/2};
     public static final int[] RIVAL_START_INDEX = {0, ROWS};
-
-    private static final int LIVES = 3;
-
 
     private int score = 0;
     private int lives = LIVES;
 
+    private Pacmanable player;
+    private Pacmanable rival;
+
     private static GameManager gameManagerInstance = null;
 
-    /**
-     * default constructor
-     */
     private GameManager() {
+        player = new Player();
+        rival = new Rival();
     }
 
     public static ControllerPacmanable getInstance() {
@@ -35,11 +35,6 @@ public class GameManager implements ControllerPacmanable{
         return gameManagerInstance;
     }
 
-
-    @Override
-    public void changeDirection(Pacmanable entity, eDirection direction) {
-        entity.setDirection(direction);
-    }
 
     @Override
     public boolean checkPlayerStartIndex(int row, int col) {
@@ -52,8 +47,8 @@ public class GameManager implements ControllerPacmanable{
     }
 
     @Override
-    public void tick() {
-
+    public Pacmanable getPlayer() {
+        return player;
     }
 
     public int getRows(){ return ROWS; }

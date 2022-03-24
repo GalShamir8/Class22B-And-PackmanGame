@@ -1,4 +1,6 @@
-package controllers;
+package models;
+
+import controllers.eDirection;
 
 public interface Pacmanable {
 

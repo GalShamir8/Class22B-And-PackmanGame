@@ -11,18 +11,13 @@ import java.util.TimerTask;
 
 import controllers.ControllerPacmanable;
 import controllers.GameManager;
+import models.Pacmanable;
+import controllers.eDirection;
 import controllers.eTimerStatus;
 
 public class Activity_main extends AppCompatActivity {
-
     private ImageView[][] gameGrid;
-
     private ControllerPacmanable gameManager = GameManager.getInstance();
-
-    private ImageView main_ING_up_arrow;
-    private ImageView main_ING_down_arrow;
-    private ImageView main_ING_right_arrow;
-    private ImageView main_ING_left_arrow;
 
     private Timer timer;
     eTimerStatus timerStatus = eTimerStatus.OFF;
@@ -51,11 +46,19 @@ public class Activity_main extends AppCompatActivity {
     }
 
     private void setControls() {
-        main_ING_up_arrow = findViewById(R.id.main_ING_up_arrow);
-        main_ING_down_arrow = findViewById(R.id.main_ING_down_arrow);
-        main_ING_right_arrow = findViewById(R.id.main_ING_right_arrow);
-        main_ING_left_arrow = findViewById(R.id.main_ING_left_arrow);
+        ImageView main_ING_up_arrow = findViewById(R.id.main_ING_up_arrow);
+        ImageView main_ING_down_arrow = findViewById(R.id.main_ING_down_arrow);
+        ImageView main_ING_right_arrow = findViewById(R.id.main_ING_right_arrow);
+        ImageView main_ING_left_arrow = findViewById(R.id.main_ING_left_arrow);
 
+        main_ING_up_arrow.setOnClickListener(e -> changeDirection(gameManager.getPlayer(), eDirection.UP));
+        main_ING_down_arrow.setOnClickListener(e -> changeDirection(gameManager.getPlayer(), eDirection.DOWN));
+        main_ING_right_arrow.setOnClickListener(e -> changeDirection(gameManager.getPlayer(), eDirection.RIGHT));
+        main_ING_left_arrow.setOnClickListener(e -> changeDirection(gameManager.getPlayer(), eDirection.LEFT));
+    }
+
+    private void changeDirection(Pacmanable playEntity, eDirection direction) {
+        playEntity.setDirection(direction);
     }
 
     private void setGridView() {

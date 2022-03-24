@@ -1,12 +1,8 @@
 package controllers;
 
+import models.Pacmanable;
+
 public interface ControllerPacmanable {
-    /**
-     *
-     * @param entity - player or rival to operate function on
-     * @param direction - desire direction to update
-     */
-    void changeDirection(Pacmanable entity, eDirection direction);
 
     int getRows();
 
@@ -19,6 +15,6 @@ public interface ControllerPacmanable {
 
     boolean checkRivalStartIndex(int row, int col);
 
-    void tick();
+    Pacmanable getPlayer();
 }
 
