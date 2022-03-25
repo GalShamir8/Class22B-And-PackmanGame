@@ -13,8 +13,6 @@ public interface ControllerPacmanable {
     void updateScore(int amount);
     void reduceLives() throws Exception;
     long getDelay();
-    boolean checkPlayerStartIndex(int row, int col);
-    boolean checkRivalStartIndex(int row, int col);
     Pacmanable getPlayer();
     Pacmanable getRival();
     int getLivesStart();
@@ -22,6 +20,5 @@ public interface ControllerPacmanable {
     boolean isCollision();
     void executeMove();
     int getLives();
-    ArrayList<Pacmanable> getAllPlayers();
 }
 

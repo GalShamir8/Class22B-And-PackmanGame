@@ -1,9 +1,14 @@
 package com.example.class22b_and_assignement2;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -29,6 +34,7 @@ public class Activity_main extends AppCompatActivity {
     private Timer timer;
     eTimerStatus timerStatus = eTimerStatus.OFF;
     private final Runnable tickTask = new Runnable() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void run() {
             tick();
@@ -44,7 +50,7 @@ public class Activity_main extends AppCompatActivity {
 
     private void initUI() {
         setViews();
-        initGrid();
+        renderGrid();
     }
 
     private void setViews() {
@@ -87,6 +93,7 @@ public class Activity_main extends AppCompatActivity {
 
     private void changeDirection(Pacmanable playEntity, eDirection direction) {
         playEntity.setDirection(direction);
+        renderGrid();
     }
 
     private void setGridView() {
@@ -107,28 +114,25 @@ public class Activity_main extends AppCompatActivity {
         }
     }
 
-    private void initGrid() {
+    private void renderGrid() {
         int rows = gameManager.getRows();
         int cols = gameManager.getCols();
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (int colIndex = 0; colIndex < cols; colIndex++) {
-                if(gameManager.checkPlayerStartIndex(rowIndex, colIndex)){
-                    // TODO: 21/03/2022 Add player img
-                    String prefix = "batman_";
-                    eDirection direction = gameManager.getPlayer().getDirection();
-                    int resId = getImageResourceByDirection(prefix, direction);
-                    gameGrid[rowIndex][colIndex].setImageResource(resId);
-                }else if(gameManager.checkRivalStartIndex(rowIndex, colIndex)){
-                    // TODO: 21/03/2022 Add rival img
-                    String prefix = "joker_";
-                    eDirection direction = gameManager.getRival().getDirection();
-                    int resId = getImageResourceByDirection(prefix, direction);
-                    gameGrid[rowIndex][colIndex].setImageResource(resId);
+                if(checkPlayerPos(gameManager.getPlayer(), rowIndex, colIndex)){
+                    setPlayerEntityView(gameManager.getPlayer());
+                }else if(checkPlayerPos(gameManager.getRival(),  rowIndex, colIndex)){
+                    setPlayerEntityView(gameManager.getRival());
                 }else {
                     gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
                 }
             }
         }
+    }
+
+    private boolean checkPlayerPos(Pacmanable player, int rowIndex, int colIndex) {
+        int[] playerPos = player.getPosition();
+        return playerPos[0] == rowIndex && playerPos[1] == colIndex;
     }
 
     private int getImageResourceByDirection(String prefix, eDirection direction) {
@@ -137,6 +141,7 @@ public class Activity_main extends AppCompatActivity {
         return resources.getIdentifier(name, "drawable", this.getPackageName());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void tick() {
         ++clockCounter;
         String clockAsStr = "" + clockCounter;
@@ -144,24 +149,15 @@ public class Activity_main extends AppCompatActivity {
         renderUI();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void renderUI() {
-        changeDirection(gameManager.getRival(), gameManager.getRandomDirection());
+        gameManager.executeMove();
         if(gameManager.isCollision()){
             handleCollision();
         }
-        setBackgroundInViews(gameManager.getAllPlayers());
-        gameManager.executeMove();
+        renderGrid();
         setLivesView();
         setScoreView();
-        setPlayerEntityView(gameManager.getPlayer());
-        setPlayerEntityView(gameManager.getRival());
-    }
-
-    private void setBackgroundInViews(ArrayList<Pacmanable> allPlayers) {
-        for (Pacmanable player: allPlayers){
-            int[] pos = player.getPosition();
-            gameGrid[pos[0]][pos[1]].setImageResource(R.drawable.game_background);
-        }
     }
 
     private void setPlayerEntityView(Pacmanable playerEntity) {
@@ -183,10 +179,12 @@ public class Activity_main extends AppCompatActivity {
         }
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void handleCollision() {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
         try{
-            //gameManager.reduceLives();
+            gameManager.reduceLives();
             gameManager.updateScore(ControllerPacmanable.SCORE_NEGATIVE_FACTOR);
         }catch (Exception e){
             finishGame(e.getMessage());
