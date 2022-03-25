@@ -85,6 +85,11 @@ public class Activity_main extends AppCompatActivity {
         ImageView main_ING_right_arrow = findViewById(R.id.main_ING_right_arrow);
         ImageView main_ING_left_arrow = findViewById(R.id.main_ING_left_arrow);
 
+        main_ING_left_arrow.setImageResource(R.drawable.left_arrow);
+        main_ING_down_arrow.setImageResource(R.drawable.down_arrow);
+        main_ING_right_arrow.setImageResource(R.drawable.right_arrow);
+        main_ING_up_arrow.setImageResource(R.drawable.up_arrow);
+
         main_ING_up_arrow.setOnClickListener(e -> changeDirection(gameManager.getPlayer(), eDirection.UP));
         main_ING_down_arrow.setOnClickListener(e -> changeDirection(gameManager.getPlayer(), eDirection.DOWN));
         main_ING_right_arrow.setOnClickListener(e -> changeDirection(gameManager.getPlayer(), eDirection.RIGHT));
