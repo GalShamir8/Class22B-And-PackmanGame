@@ -27,7 +27,9 @@ import controllers.eTimerStatus;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Activity_main extends AppCompatActivity {
+    /* lives display */
     private  ImageView[] hearts;
+    /* background display */
     private ImageView[][] gameGrid;
     private final ControllerPacmanable gameManager = GameManager.getInstance();
     private MaterialTextView main_LBL_countDown;
@@ -36,6 +38,7 @@ public class Activity_main extends AppCompatActivity {
 
     private Timer timer;
     eTimerStatus timerStatus = eTimerStatus.OFF;
+    /* implements inside the time task for timer each "tick" */
     private final Runnable tickTask = this::tick;
 
     @Override
@@ -69,6 +72,8 @@ public class Activity_main extends AppCompatActivity {
         Resources resources = this.getResources();
         hearts = new ImageView[gameManager.getLivesStart()];
         for(int i = 0; i < hearts.length; i++){
+            /* hearts img id string pattern:
+            prefix + live index ( starts in 1 ) */
             String imgResourceName = prefix + (i + 1);
             int imageId = resources.getIdentifier(imgResourceName, "id",
                     this.getPackageName());
