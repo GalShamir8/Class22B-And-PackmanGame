@@ -1,7 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
-
 import models.Pacmanable;
 import models.Player;
 
@@ -18,8 +16,8 @@ public class GameManager implements ControllerPacmanable{
     private int score = 0;
     private int lives = LIVES;
 
-    private Pacmanable player;
-    private Pacmanable rival;
+    private final Pacmanable player;
+    private final Pacmanable rival;
 
     private static GameManager gameManagerInstance = null;
 
@@ -98,10 +96,8 @@ public class GameManager implements ControllerPacmanable{
             case RIGHT:
                 // rows remains as their old value
                 newPos[0] = curPos[0];
-                // in case of out of border move (last column)
-                if (curPos[1] == COLUMNS - 1){
-                    newPos[1] = 0;
-                }else{
+                // in case of out of border move (last column) -> the column get the value 0
+                if (curPos[1] != COLUMNS - 1){
                     newPos[1] = curPos[1] + 1;
                 }
                 break;
@@ -136,20 +132,16 @@ public class GameManager implements ControllerPacmanable{
             case DOWN:
                 // columns remains as their old value
                 newPos[1] = curPos[1];
-                // in case of out of border move (last row)
-                if (curPos[0] == ROWS - 1){
-                    newPos[0] = 0;
-                }else{
+                // in case of out of border move (last row) -> the row get the value 0
+                if (curPos[0] != ROWS - 1){
                     newPos[0] = curPos[0] + 1;
                 }
                 break;
             case RIGHT:
                 // rows remains as their old value
                 newPos[0] = curPos[0];
-                // in case of out of border move (last column)
-                if (curPos[1] == COLUMNS - 1){
-                    newPos[1] = 0;
-                }else{
+                // in case of out of border move (last column) -> the column get the value 0
+                if (curPos[1] != COLUMNS - 1){
                     newPos[1] = curPos[1] + 1;
                 }
                 break;

@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.google.android.material.textview.MaterialTextView;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,23 +25,18 @@ import models.Pacmanable;
 import controllers.eDirection;
 import controllers.eTimerStatus;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class Activity_main extends AppCompatActivity {
     private  ImageView[] hearts;
     private ImageView[][] gameGrid;
-    private ControllerPacmanable gameManager = GameManager.getInstance();
+    private final ControllerPacmanable gameManager = GameManager.getInstance();
     private MaterialTextView main_LBL_countDown;
     private MaterialTextView main_LBL_clock;
     private int clockCounter = 0;
 
     private Timer timer;
     eTimerStatus timerStatus = eTimerStatus.OFF;
-    private final Runnable tickTask = new Runnable() {
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @Override
-        public void run() {
-            tick();
-        }
-    };
+    private final Runnable tickTask = this::tick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +109,7 @@ public class Activity_main extends AppCompatActivity {
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (int colIndex = 0; colIndex < cols; colIndex++) {
                 /* Img view (of grid) id fit the string pattern:
-                 the above prefix + img matrix indexes positions suffix ( main_LBL_gridij ) */
+                 prefix + img matrix indexes positions suffix ( main_LBL_gridrowIndexcolIndex ) */
                 String imgResourceName = gridPrefix + rowIndex + colIndex;
                 int imageId = resources.getIdentifier(imgResourceName, "id",
                         this.getPackageName());
@@ -263,9 +257,7 @@ public class Activity_main extends AppCompatActivity {
                 timer.cancel();
                 break;
             case OFF:
-                break;
             case PAUSE:
-                break;
             case STOP:
                 break;
         }
