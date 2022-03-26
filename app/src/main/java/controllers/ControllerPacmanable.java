@@ -20,5 +20,7 @@ public interface ControllerPacmanable {
     boolean isCollision();
     void executeMove();
     int getLives();
+
+    void handleCollision() throws Exception;
 }
 

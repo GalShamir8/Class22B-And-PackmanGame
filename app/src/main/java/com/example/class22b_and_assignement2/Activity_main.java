@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.textview.MaterialTextView;
 
@@ -28,6 +30,7 @@ public class Activity_main extends AppCompatActivity {
     private  ImageView[] hearts;
     private ImageView[][] gameGrid;
     private ControllerPacmanable gameManager = GameManager.getInstance();
+    private MaterialTextView main_LBL_countDown;
     private MaterialTextView main_LBL_clock;
     private int clockCounter = 0;
 
@@ -63,6 +66,8 @@ public class Activity_main extends AppCompatActivity {
         setHearts();
         main_LBL_clock = findViewById(R.id.main_LBL_clock);
         main_LBL_clock.setText(R.string.default_timer);
+        main_LBL_countDown = findViewById(R.id.main_LBL_countDown);
+        main_LBL_countDown.setVisibility(View.INVISIBLE);
     }
 
     private void setHearts() {
@@ -148,10 +153,12 @@ public class Activity_main extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void tick() {
-        ++clockCounter;
-        String clockAsStr = "" + clockCounter;
-        main_LBL_clock.setText(clockAsStr);
-        renderUI();
+        if(timerStatus == eTimerStatus.RUNNING) {
+            ++clockCounter;
+            String clockAsStr = "" + clockCounter;
+            main_LBL_clock.setText(clockAsStr);
+            renderUI();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -159,8 +166,9 @@ public class Activity_main extends AppCompatActivity {
         gameManager.executeMove();
         if(gameManager.isCollision()){
             handleCollision();
+        }else {
+            renderGrid();
         }
-        renderGrid();
         setLivesView();
         setScoreView();
     }
@@ -189,15 +197,30 @@ public class Activity_main extends AppCompatActivity {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
         try{
-            gameManager.reduceLives();
-            gameManager.updateScore(ControllerPacmanable.SCORE_NEGATIVE_FACTOR);
+            gameManager.handleCollision();
+            renderGrid();
+            main_LBL_countDown.setVisibility(View.VISIBLE);
+            timerStatus = eTimerStatus.PAUSE;
+            new CountDownTimer(3000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    String message = "Start in: " + millisUntilFinished / 1000 + "seconds";
+                    main_LBL_countDown.setText(message);
+                }
+
+                @Override
+                public void onFinish() {
+                    main_LBL_countDown.setVisibility(View.INVISIBLE);
+                    timerStatus = eTimerStatus.RUNNING;
+                }
+            }.start();
         }catch (Exception e){
             finishGame(e.getMessage());
         }
     }
 
     private void finishGame(String message) {
-        // TODO: 24/03/2022 add toast message
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         finish();
     }
 
@@ -205,6 +228,7 @@ public class Activity_main extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         startTimer();
+        timerStatus = eTimerStatus.RUNNING;
     }
 
     private void startTimer() {
@@ -230,6 +254,7 @@ public class Activity_main extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         stopTimer();
+        timerStatus = eTimerStatus.STOP;
     }
 
     private void stopTimer() {
@@ -250,11 +275,13 @@ public class Activity_main extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startTimer();
+        timerStatus = eTimerStatus.RUNNING;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         stopTimer();
+        timerStatus = eTimerStatus.PAUSE;
     }
 }

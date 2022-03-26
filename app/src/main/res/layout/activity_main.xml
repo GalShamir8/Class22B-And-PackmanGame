@@ -52,6 +52,16 @@
                 android:text="@string/default_timer"
                 />
         </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/main_LBL_countDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="countDown"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+        />
 
         <include layout="@layout/grid_view" />
 
@@ -71,8 +81,8 @@
 
                 <ImageView
                     android:id="@+id/main_ING_up_arrow"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/up_arrow"
                     android:layout_gravity="center"/>
             </LinearLayout>
@@ -87,16 +97,16 @@
 
                 <ImageView
                     android:id="@+id/main_ING_left_arrow"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="start"
                     android:src="@drawable/left_arrow"
                     />
 
                 <ImageView
                     android:id="@+id/main_ING_right_arrow"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="end"
                     android:src="@drawable/right_arrow" />
 
@@ -111,8 +121,8 @@
 
                 <ImageView
                     android:id="@+id/main_ING_down_arrow"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/down_arrow" />
             </LinearLayout>
 

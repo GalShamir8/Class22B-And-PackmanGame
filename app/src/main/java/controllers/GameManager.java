@@ -188,6 +188,14 @@ public class GameManager implements ControllerPacmanable{
         return lives;
     }
 
+    @Override
+    public void handleCollision() throws Exception {
+        reduceLives();
+        updateScore(ControllerPacmanable.SCORE_NEGATIVE_FACTOR);
+        player.setPosition(PLAYER_START_INDEX[0], PLAYER_START_INDEX[1]);
+        rival.setPosition(RIVAL_START_INDEX[0], RIVAL_START_INDEX[1]);
+    }
+
     public int getRows(){ return ROWS; }
 
     public int getCols(){ return COLUMNS; }
