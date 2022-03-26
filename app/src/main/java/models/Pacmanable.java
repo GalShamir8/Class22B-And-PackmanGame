@@ -8,6 +8,11 @@ public interface Pacmanable {
     void setPosition(int row, int col);
     boolean equals(Pacmanable other);
     eDirection getDirection();
+
+    /**
+     *
+     * @return position in an array contains 2 values [0] - row, [1] - column
+     */
     int[] getPosition();
     String getName();
 }
