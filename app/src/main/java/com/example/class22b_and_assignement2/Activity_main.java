@@ -200,22 +200,26 @@ public class Activity_main extends AppCompatActivity {
             renderGrid();
             main_LBL_countDown.setVisibility(View.VISIBLE);
             timerStatus = eTimerStatus.PAUSE;
-            new CountDownTimer(3000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    String message = "Start in: " + millisUntilFinished / 1000 + "seconds";
-                    main_LBL_countDown.setText(message);
-                }
-
-                @Override
-                public void onFinish() {
-                    main_LBL_countDown.setVisibility(View.INVISIBLE);
-                    timerStatus = eTimerStatus.RUNNING;
-                }
-            }.start();
+            getCountDownTimer().start();
         }catch (Exception e){
             finishGame(e.getMessage());
         }
+    }
+
+    private CountDownTimer getCountDownTimer() {
+        return new CountDownTimer(3000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String message = "Start in: " + millisUntilFinished / 1000 + " seconds";
+                main_LBL_countDown.setText(message);
+            }
+
+            @Override
+            public void onFinish() {
+                main_LBL_countDown.setVisibility(View.INVISIBLE);
+                timerStatus = eTimerStatus.RUNNING;
+            }
+        };
     }
 
     private void finishGame(String message) {
