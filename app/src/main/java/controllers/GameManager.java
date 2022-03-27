@@ -10,7 +10,7 @@ public class GameManager implements ControllerPacmanable{
     public static final int COLUMNS = 3;
     public static final int ROWS = 5;
     private static final int LIVES = 3;
-    public static final int[] PLAYER_START_INDEX = {ROWS - 1, (int)COLUMNS/2 + 1};
+    public static final int[] PLAYER_START_INDEX = {ROWS - 1, COLUMNS/2};
     public static final int[] RIVAL_START_INDEX = {0, COLUMNS - 1};
 
     private int score = 0;
