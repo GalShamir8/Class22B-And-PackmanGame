@@ -224,6 +224,7 @@ public class Activity_main extends AppCompatActivity {
 
     private void finishGame(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        gameManager.finishGame();
         finish();
     }
 

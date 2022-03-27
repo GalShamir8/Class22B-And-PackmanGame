@@ -171,6 +171,11 @@ public class GameManager implements ControllerPacmanable{
         rival.setPosition(rivalNextPos[0], rivalNextPos[1]);
     }
 
+    @Override
+    public void finishGame() {
+        gameManagerInstance = new GameManager();
+    }
+
     private boolean isAddScore() {
         return getRivalNextPos() == RIVAL_START_INDEX && rival.getPosition()[1] == ROWS - 1;
     }

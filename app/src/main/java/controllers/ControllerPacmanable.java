@@ -44,5 +44,7 @@ public interface ControllerPacmanable {
     boolean isCollision();
     void handleCollision() throws Exception;
     void executeMove();
+
+    void finishGame();
 }
 
