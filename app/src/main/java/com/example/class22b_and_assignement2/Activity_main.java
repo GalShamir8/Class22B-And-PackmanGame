@@ -34,6 +34,7 @@ public class Activity_main extends AppCompatActivity {
     private final ControllerPacmanable gameManager = GameManager.getInstance();
     private MaterialTextView main_LBL_countDown;
     private MaterialTextView main_LBL_clock;
+    private MaterialTextView main_LBL_score;
     private int clockCounter = 0;
 
     private Timer timer;
@@ -63,6 +64,8 @@ public class Activity_main extends AppCompatActivity {
         setHearts();
         main_LBL_clock = findViewById(R.id.main_LBL_clock);
         main_LBL_clock.setText(R.string.default_timer);
+        main_LBL_score = findViewById(R.id.main_LBL_score);
+        main_LBL_score.setText(R.string.default_timer);
         main_LBL_countDown = findViewById(R.id.main_LBL_countDown);
         main_LBL_countDown.setVisibility(View.INVISIBLE);
     }
@@ -167,6 +170,9 @@ public class Activity_main extends AppCompatActivity {
             handleCollision();
         }else {
             renderGrid();
+            if (clockCounter % 5 == 0) { // update score every 5 seconds
+                gameManager.updateScore(ControllerPacmanable.SCORE_POSITIVE_FACTOR);
+            }
         }
         setLivesView();
         setScoreView();
@@ -183,6 +189,8 @@ public class Activity_main extends AppCompatActivity {
     }
 
     private void setScoreView() {
+        String score = String.valueOf(gameManager.getScore());
+        main_LBL_score.setText(score);
     }
 
     private void setLivesView() {
@@ -197,9 +205,8 @@ public class Activity_main extends AppCompatActivity {
         v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
         try{
             gameManager.handleCollision();
+            gameManager.updateScore(ControllerPacmanable.SCORE_NEGATIVE_FACTOR);
             renderGrid();
-            main_LBL_countDown.setVisibility(View.VISIBLE);
-            timerStatus = eTimerStatus.PAUSE;
             getCountDownTimer().start();
         }catch (Exception e){
             finishGame(e.getMessage());
@@ -210,6 +217,8 @@ public class Activity_main extends AppCompatActivity {
         return new CountDownTimer(3000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                main_LBL_countDown.setVisibility(View.VISIBLE);
+                timerStatus = eTimerStatus.PAUSE;
                 String message = "Start in: " + millisUntilFinished / 1000 + " seconds";
                 main_LBL_countDown.setText(message);
             }

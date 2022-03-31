@@ -188,7 +188,6 @@ public class GameManager implements ControllerPacmanable{
     @Override
     public void handleCollision() throws Exception {
         reduceLives();
-        updateScore(ControllerPacmanable.SCORE_NEGATIVE_FACTOR);
         player.setPosition(PLAYER_START_INDEX[0], PLAYER_START_INDEX[1]);
         rival.setPosition(RIVAL_START_INDEX[0], RIVAL_START_INDEX[1]);
     }
@@ -204,7 +203,7 @@ public class GameManager implements ControllerPacmanable{
 
     @Override
     public void updateScore(int amount) {
-        if(amount < 0 && amount > score){
+        if(amount < 0 && Math.abs(amount) > score){
             score = 0;
         }else{
             score += amount;
