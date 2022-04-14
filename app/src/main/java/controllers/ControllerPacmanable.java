@@ -5,6 +5,11 @@ import models.Pacmanable;
 public interface ControllerPacmanable {
     int SCORE_NEGATIVE_FACTOR = -5;
     int SCORE_POSITIVE_FACTOR = 10;
+    float RIGHT_SENSOR_BORDER = -3;
+    float LEFT_SENSOR_BORDER = 3;
+    float UP_SENSOR_BORDER = 4.3F;
+    float DOWN_SENSOR_BORDER = 8.5F;
+
     int getRows();
     int getCols();
     int getLives();
@@ -46,5 +51,7 @@ public interface ControllerPacmanable {
     void executeMove();
 
     void finishGame();
+
+    eDirection handleSensors(float[] sensorValues);
 }
 

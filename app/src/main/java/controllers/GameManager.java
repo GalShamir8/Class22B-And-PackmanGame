@@ -7,8 +7,8 @@ import models.Player;
 public class GameManager implements ControllerPacmanable{
     private static int id = 0;
     private static final long DELAY = 1000;
-    public static final int COLUMNS = 3;
-    public static final int ROWS = 5;
+    public static final int COLUMNS = 5;
+    public static final int ROWS = 8;
     private static final int LIVES = 3;
     public static final int[] PLAYER_START_INDEX = {ROWS - 1, COLUMNS/2};
     public static final int[] RIVAL_START_INDEX = {0, COLUMNS - 1};
@@ -174,6 +174,24 @@ public class GameManager implements ControllerPacmanable{
     @Override
     public void finishGame() {
         gameManagerInstance = new GameManager();
+    }
+
+    @Override
+    public eDirection handleSensors(float[] sensorValues) {
+        float xVal = sensorValues[0];
+        float yVal = sensorValues[1];
+
+        if (xVal < RIGHT_SENSOR_BORDER){
+            return eDirection.RIGHT;
+        }else if(xVal < LEFT_SENSOR_BORDER){
+            return eDirection.LEFT;
+        }
+         if (yVal < UP_SENSOR_BORDER){
+             return eDirection.RIGHT;
+         }else if(yVal > DOWN_SENSOR_BORDER){
+             return eDirection.LEFT;
+         }
+        return player.getDirection();
     }
 
     private boolean isAddScore() {
