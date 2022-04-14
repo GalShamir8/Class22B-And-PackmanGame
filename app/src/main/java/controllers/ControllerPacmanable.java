@@ -44,6 +44,13 @@ public interface ControllerPacmanable {
     eDirection getRandomDirection();
 
     /**
+     *
+     * @return random position in the grid (matrix) border;
+     * the array returnes holds x position in it's 0 offset and y position in 1 offset
+     */
+    int[] getRandomPosition();
+
+    /**
      * checks if the player and rival next step ( move ) will cause collision ( both in same 'kube' )
      * @return True / False corresponding the condition
      */

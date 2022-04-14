@@ -63,6 +63,13 @@ public class GameManager implements ControllerPacmanable{
     }
 
     @Override
+    public int[] getRandomPosition() {
+        return new int[] {
+                (int) (Math.random() * (COLUMNS)),
+                (int) (Math.random() * (ROWS))};
+    }
+
+    @Override
     public boolean isCollision() {
         int[] playerPos = player.getPosition();
         int[] rivalPos = rival.getPosition();
