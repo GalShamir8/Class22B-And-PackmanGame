@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/activity_main"
+    tools:showIn="@layout/activity_sensors"
     android:orientation="vertical"
     android:layout_weight="0.8"
     android:layout_centerInParent="true"
@@ -28,6 +28,20 @@
             />
         <ImageView
             android:id="@+id/main_IMG_grid02"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid03"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid04"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -59,6 +73,20 @@
             android:layout_weight="1"
             android:src="@drawable/game_background"
             />
+        <ImageView
+            android:id="@+id/main_IMG_grid13"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid14"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,6 +108,20 @@
             />
         <ImageView
             android:id="@+id/main_IMG_grid22"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid23"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid24"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -111,6 +153,21 @@
             android:layout_weight="1"
             android:src="@drawable/game_background"
             />
+        <ImageView
+            android:id="@+id/main_IMG_grid33"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid34"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,6 +189,140 @@
             />
         <ImageView
             android:id="@+id/main_IMG_grid42"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid43"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid44"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/main_IMG_grid50"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid51"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid52"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid53"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid54"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/main_IMG_grid60"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid61"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid62"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid63"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid64"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/main_IMG_grid70"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid71"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid72"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid73"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/game_background"
+            />
+        <ImageView
+            android:id="@+id/main_IMG_grid74"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
