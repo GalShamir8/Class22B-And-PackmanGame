@@ -128,7 +128,6 @@ public class Game_activity extends AppCompatActivity {
         try {
             eDirection direction = gameManager.handleSensors(sensorEvent.values);
             String message = "Direction: " + direction.name() + "sensors: " + Arrays.toString(sensorEvent.values);
-            Log.i("debug sensors", message);
             changeDirection(gameManager.getPlayer(), direction);
         }catch (Exception e){
             Log.e(ERR_TAG, "Failed to get sensor values", e.getCause());
