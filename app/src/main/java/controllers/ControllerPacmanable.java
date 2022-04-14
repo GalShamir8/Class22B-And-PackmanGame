@@ -5,10 +5,10 @@ import models.Pacmanable;
 public interface ControllerPacmanable {
     int SCORE_NEGATIVE_FACTOR = -5;
     int SCORE_POSITIVE_FACTOR = 10;
-    float RIGHT_SENSOR_BORDER = -3;
+    float RIGHT_SENSOR_BORDER = (float) -2.5;
     float LEFT_SENSOR_BORDER = 3;
-    float UP_SENSOR_BORDER = 4.3F;
-    float DOWN_SENSOR_BORDER = 8.5F;
+    float UP_SENSOR_BORDER = (float) 8.3;
+    float DOWN_SENSOR_BORDER = (float) 9.5;
 
     int getRows();
     int getCols();

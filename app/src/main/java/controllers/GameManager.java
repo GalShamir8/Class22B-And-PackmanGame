@@ -183,14 +183,15 @@ public class GameManager implements ControllerPacmanable{
 
         if (xVal < RIGHT_SENSOR_BORDER){
             return eDirection.RIGHT;
-        }else if(xVal < LEFT_SENSOR_BORDER){
+        }else if(xVal > LEFT_SENSOR_BORDER){
             return eDirection.LEFT;
         }
-         if (yVal < UP_SENSOR_BORDER){
-             return eDirection.RIGHT;
-         }else if(yVal > DOWN_SENSOR_BORDER){
-             return eDirection.LEFT;
-         }
+        if (yVal < UP_SENSOR_BORDER){
+            return eDirection.UP;
+        }else if(yVal > DOWN_SENSOR_BORDER){
+            return eDirection.DOWN;
+        }
+
         return player.getDirection();
     }
 

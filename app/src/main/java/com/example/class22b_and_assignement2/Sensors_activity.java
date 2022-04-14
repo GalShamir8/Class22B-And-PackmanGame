@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textview.MaterialTextView;
 
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -88,12 +89,10 @@ public class Sensors_activity extends AppCompatActivity {
 
     private void sensorChanged(SensorEvent sensorEvent) {
         try {
-            float[] sensorValues = sensorEvent.values;
-            float xVal = sensorValues[0];
-            float yVal = sensorValues[1];
-            eDirection direction = gameManager.handleSensors(sensorValues);
+            eDirection direction = gameManager.handleSensors(sensorEvent.values);
+            String message = "Direction: " + direction.name() + "sensors: " + Arrays.toString(sensorEvent.values);
+            Log.i("debug sensors", message);
             changeDirection(gameManager.getPlayer(), direction);
-
         }catch (Exception e){
             Log.e(ERR_TAG, "Failed to get sensor values", e.getCause());
         }
@@ -310,6 +309,7 @@ public class Sensors_activity extends AppCompatActivity {
         super.onResume();
         startTimer();
         timerStatus = eTimerStatus.RUNNING;
+        sensorManager.registerListener(accSensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -317,5 +317,6 @@ public class Sensors_activity extends AppCompatActivity {
         super.onPause();
         stopTimer();
         timerStatus = eTimerStatus.PAUSE;
+        sensorManager.unregisterListener(accSensorEventListener);
     }
 }
