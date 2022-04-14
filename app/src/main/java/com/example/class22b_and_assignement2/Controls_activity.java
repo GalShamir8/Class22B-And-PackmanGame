@@ -26,7 +26,7 @@ import controllers.eDirection;
 import controllers.eTimerStatus;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class Activity_main extends AppCompatActivity {
+public class Controls_activity extends AppCompatActivity {
     /* lives display */
     private  ImageView[] hearts;
     /* background display */
