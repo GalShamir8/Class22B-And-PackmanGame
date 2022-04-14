@@ -1,6 +1,6 @@
 package models;
 
-import controllers.eDirection;
+import common.eDirection;
 
 public interface Pacmanable {
 

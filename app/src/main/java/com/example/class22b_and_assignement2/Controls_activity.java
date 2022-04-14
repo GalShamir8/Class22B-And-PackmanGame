@@ -22,8 +22,8 @@ import java.util.TimerTask;
 import controllers.ControllerPacmanable;
 import controllers.GameManager;
 import models.Pacmanable;
-import controllers.eDirection;
-import controllers.eTimerStatus;
+import common.eDirection;
+import common.eTimerStatus;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Controls_activity extends AppCompatActivity {

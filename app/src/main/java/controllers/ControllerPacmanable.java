@@ -1,5 +1,6 @@
 package controllers;
 
+import common.eDirection;
 import models.Pacmanable;
 
 public interface ControllerPacmanable {

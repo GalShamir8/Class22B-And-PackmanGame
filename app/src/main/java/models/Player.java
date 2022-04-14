@@ -1,6 +1,6 @@
 package models;
 
-import controllers.eDirection;
+import common.eDirection;
 
 public class Player implements Pacmanable {
     private int id;

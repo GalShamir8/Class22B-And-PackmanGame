@@ -27,8 +27,8 @@ import java.util.TimerTask;
 
 import controllers.ControllerPacmanable;
 import controllers.GameManager;
-import controllers.eDirection;
-import controllers.eTimerStatus;
+import common.eDirection;
+import common.eTimerStatus;
 import models.Pacmanable;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
