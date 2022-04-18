@@ -184,7 +184,10 @@ public class Game_activity extends AppCompatActivity {
                     setPlayerEntityView(gameManager.getPlayer());
                 }else if(checkPlayerPos(gameManager.getRival(),  rowIndex, colIndex)){
                     setPlayerEntityView(gameManager.getRival());
-                }else {
+                }else if(gameManager.isTrophy(rowIndex, colIndex)){
+                    gameGrid[rowIndex][colIndex].setImageResource(R.drawable.coin);
+                }
+                else {
                     gameGrid[rowIndex][colIndex].setImageResource(R.drawable.game_background);
                 }
             }
@@ -218,6 +221,7 @@ public class Game_activity extends AppCompatActivity {
         if(gameManager.isCollision()){
             handleCollision();
         }else {
+            handleTrophy();
             renderGrid();
             if (clockCounter % 5 == 0) { // update score every 5 seconds
                 gameManager.updateScore(ControllerPacmanable.SCORE_POSITIVE_FACTOR);
@@ -225,6 +229,32 @@ public class Game_activity extends AppCompatActivity {
         }
         setLivesView();
         setScoreView();
+    }
+
+    private void handleTrophy() {
+        if (!gameManager.getTrophyFlag()){
+            if(clockCounter % 15 == 0){ // display trophy every 15 seconds
+                gameManager.setTrophyFlag(true);
+                gameManager.setTrophyPos();
+                setCountDownTimer(
+                    gameManager.TROPHY_TIME_INTERVAL,
+                    gameManager.COUNT_DOWN_INTERVAL,
+                    params -> onTrophyTick((long)params[0]),
+                    params -> onTrophyFinish()
+                ).start();
+            }
+        }
+    }
+
+    private void onTrophyFinish() {
+        gameManager.setTrophyFlag(false);
+    }
+
+    private void onTrophyTick(long millisInFuture) {
+        if (gameManager.isTrophyCollision()){
+            gameManager.updateScore(gameManager.SCORE_POSITIVE_FACTOR);
+            gameManager.setTrophyFlag(false);
+        }
     }
 
     private void setPlayerEntityView(Pacmanable playerEntity) {
@@ -278,24 +308,6 @@ public class Game_activity extends AppCompatActivity {
         String message = "Start in: " + millisInFuture / 1000 + " seconds";
         main_LBL_countDown.setText(message);
     }
-
-//    private CountDownTimer getCountDownTimerCollision() {
-//        return new CountDownTimer(3000, 1000) {
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                main_LBL_countDown.setVisibility(View.VISIBLE);
-//                timerStatus = eTimerStatus.PAUSE;
-//                String message = "Start in: " + millisUntilFinished / 1000 + " seconds";
-//                main_LBL_countDown.setText(message);
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                main_LBL_countDown.setVisibility(View.INVISIBLE);
-//                timerStatus = eTimerStatus.RUNNING;
-//            }
-//        };
-//    }
 
     private CountDownTimer setCountDownTimer(long milliSeconds, long countDownInterval,
                                              Callable onTick, Callable onFinish) {
