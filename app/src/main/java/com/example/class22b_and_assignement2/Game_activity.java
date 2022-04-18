@@ -21,10 +21,10 @@ import android.widget.Toast;
 
 import com.google.android.material.textview.MaterialTextView;
 
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import common.Callable;
 import common.eGameType;
 import controllers.ControllerPacmanable;
 import controllers.GameManager;
@@ -61,7 +61,9 @@ public class Game_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        gameType = eGameType.values()[bundle.getInt("gameType", 0)];
+        gameType = eGameType.values()[0];
+        // TODO: 18/04/2022 Replace this 
+//        gameType = eGameType.values()[bundle.getInt("gameType", 0)];
         if (gameType == eGameType.CONTROLS) {
             setContentView(R.layout.activity_main);
         }else if(gameType == eGameType.SENSORS) {
@@ -127,7 +129,6 @@ public class Game_activity extends AppCompatActivity {
     private void sensorChanged(SensorEvent sensorEvent) {
         try {
             eDirection direction = gameManager.handleSensors(sensorEvent.values);
-            String message = "Direction: " + direction.name() + "sensors: " + Arrays.toString(sensorEvent.values);
             changeDirection(gameManager.getPlayer(), direction);
         }catch (Exception e){
             Log.e(ERR_TAG, "Failed to get sensor values", e.getCause());
@@ -255,26 +256,58 @@ public class Game_activity extends AppCompatActivity {
             gameManager.handleCollision();
             gameManager.updateScore(ControllerPacmanable.SCORE_NEGATIVE_FACTOR);
             renderGrid();
-            getCountDownTimerCollision().start();
+            setCountDownTimer(
+                    gameManager.COLLISION_TIME_INTERVAL,
+                    gameManager.COUNT_DOWN_INTERVAL,
+                    params -> onTickCollision((long)params[0]),
+                    params -> onFinishCollision()
+            ).start();
         }catch (Exception e){
             finishGame(e.getMessage());
         }
     }
 
-    private CountDownTimer getCountDownTimerCollision() {
-        return new CountDownTimer(3000, 1000) {
+    private void onFinishCollision() {
+        main_LBL_countDown.setVisibility(View.INVISIBLE);
+        timerStatus = eTimerStatus.RUNNING;
+    }
+
+    private void onTickCollision(long millisInFuture) {
+        main_LBL_countDown.setVisibility(View.VISIBLE);
+        timerStatus = eTimerStatus.PAUSE;
+        String message = "Start in: " + millisInFuture / 1000 + " seconds";
+        main_LBL_countDown.setText(message);
+    }
+
+//    private CountDownTimer getCountDownTimerCollision() {
+//        return new CountDownTimer(3000, 1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                main_LBL_countDown.setVisibility(View.VISIBLE);
+//                timerStatus = eTimerStatus.PAUSE;
+//                String message = "Start in: " + millisUntilFinished / 1000 + " seconds";
+//                main_LBL_countDown.setText(message);
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                main_LBL_countDown.setVisibility(View.INVISIBLE);
+//                timerStatus = eTimerStatus.RUNNING;
+//            }
+//        };
+//    }
+
+    private CountDownTimer setCountDownTimer(long milliSeconds, long countDownInterval,
+                                             Callable onTick, Callable onFinish) {
+        return new CountDownTimer(milliSeconds, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
-                main_LBL_countDown.setVisibility(View.VISIBLE);
-                timerStatus = eTimerStatus.PAUSE;
-                String message = "Start in: " + millisUntilFinished / 1000 + " seconds";
-                main_LBL_countDown.setText(message);
+                onTick.call(millisUntilFinished);
             }
 
             @Override
             public void onFinish() {
-                main_LBL_countDown.setVisibility(View.INVISIBLE);
-                timerStatus = eTimerStatus.RUNNING;
+                onFinish.call();
             }
         };
     }
