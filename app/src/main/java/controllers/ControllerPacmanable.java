@@ -5,6 +5,7 @@ import models.Pacmanable;
 
 public interface ControllerPacmanable {
     long COUNT_DOWN_INTERVAL = 1000;
+    long TROPHY_TIME_INTERVAL = 5000;
     long COLLISION_TIME_INTERVAL = 3000;
     int SCORE_NEGATIVE_FACTOR = -5;
     int SCORE_POSITIVE_FACTOR = 10;
@@ -63,5 +64,25 @@ public interface ControllerPacmanable {
     void finishGame();
 
     eDirection handleSensors(float[] sensorValues);
+
+    /**
+     *
+     * @param rowIndex
+     * @param colIndex
+     * @return returns if trophy should be display in the given (rowIndex, colIndex)
+     */
+    boolean isTrophy(int rowIndex, int colIndex);
+
+    boolean getTrophyFlag();
+
+    void setTrophyFlag(boolean value);
+
+    void setTrophyPos();
+
+    /**
+     * checks if the player and the trophy next step ( move ) will placed in the same position ( both in same 'kube' )
+     * @return  True / False corresponding the condition
+     */
+    boolean isTrophyCollision();
 }
 

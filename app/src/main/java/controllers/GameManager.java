@@ -20,6 +20,9 @@ public class GameManager implements ControllerPacmanable{
     private final Pacmanable player;
     private final Pacmanable rival;
 
+    private boolean trophyFlag = false;
+    private int[] trophyPos = new int[2];
+
     private static GameManager gameManagerInstance = null;
 
     private GameManager() {
@@ -201,6 +204,40 @@ public class GameManager implements ControllerPacmanable{
         }
 
         return player.getDirection();
+    }
+
+    @Override
+    public boolean isTrophy(int rowIndex, int colIndex) {
+        if (trophyFlag){
+            return trophyPos[0] == rowIndex && trophyPos[1] == colIndex;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean getTrophyFlag() {
+        return trophyFlag;
+    }
+
+    @Override
+    public void setTrophyFlag(boolean value) {
+        trophyFlag = value;
+    }
+
+    @Override
+    public void setTrophyPos() {
+        boolean condition = true;
+        while (condition) {
+            trophyPos = getRandomPosition();
+            condition = trophyPos == player.getPosition() ||
+                    trophyPos == rival.getPosition();
+        }
+    }
+
+    @Override
+    public boolean isTrophyCollision() {
+        int[] playerPos = player.getPosition();
+        return playerPos[0] == trophyPos[0] && playerPos[1] == trophyPos[1];
     }
 
     private boolean isAddScore() {
