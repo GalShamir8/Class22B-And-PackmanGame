@@ -4,6 +4,8 @@ import common.eDirection;
 import models.Pacmanable;
 
 public interface ControllerPacmanable {
+    long COUNT_DOWN_INTERVAL = 1000;
+    long COLLISION_TIME_INTERVAL = 3000;
     int SCORE_NEGATIVE_FACTOR = -5;
     int SCORE_POSITIVE_FACTOR = 10;
     float RIGHT_SENSOR_BORDER = (float) -2.5;
