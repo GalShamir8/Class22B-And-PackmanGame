@@ -2,4 +2,8 @@
     <string name="app_name">Pac Man</string>
     <string name="live">LIVE</string>
     <string name="default_timer">000</string>
+    <string name="welcome_to_pac_man_game">Welcome To Pac Man Game</string>
+    <string name="sensors_game">Sensors Game</string>
+    <string name="controls_game">Controls Game</string>
+    <string name="top_10">Top 10!</string>
 </resources>

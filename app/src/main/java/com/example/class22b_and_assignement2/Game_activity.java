@@ -62,9 +62,7 @@ public class Game_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        gameType = eGameType.values()[0];
-        // TODO: 18/04/2022 Replace this 
-//        gameType = eGameType.values()[bundle.getInt("gameType", 0)];
+        gameType = eGameType.values()[bundle.getInt("gameType", 0)];
         if (gameType == eGameType.CONTROLS) {
             setContentView(R.layout.activity_main);
         }else if(gameType == eGameType.SENSORS) {

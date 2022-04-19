@@ -1,5 +1,5 @@
 package common;
 
 public enum eGameType {
-    CONTROLS, SENSORS
+    CONTROLS, SENSORS, TOP_TEN
 }
