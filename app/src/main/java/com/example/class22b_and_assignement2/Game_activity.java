@@ -9,6 +9,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -233,7 +234,7 @@ public class Game_activity extends AppCompatActivity {
 
     private void handleTrophy() {
         if (!gameManager.getTrophyFlag()){
-            if(clockCounter % 15 == 0){ // display trophy every 15 seconds
+            if(clockCounter % 15 == 0){
                 gameManager.setTrophyFlag(true);
                 gameManager.setTrophyPos();
                 setCountDownTimer(
@@ -246,6 +247,7 @@ public class Game_activity extends AppCompatActivity {
         }
     }
 
+
     private void onTrophyFinish() {
         gameManager.setTrophyFlag(false);
     }
@@ -254,6 +256,7 @@ public class Game_activity extends AppCompatActivity {
         if (gameManager.isTrophyCollision()){
             gameManager.updateScore(gameManager.SCORE_POSITIVE_FACTOR);
             gameManager.setTrophyFlag(false);
+            MediaPlayer.create(this, R.raw.trophy_tone).start();
         }
     }
 
