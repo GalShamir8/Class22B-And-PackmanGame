@@ -6,4 +6,6 @@
     <string name="sensors_game">Sensors Game</string>
     <string name="controls_game">Controls Game</string>
     <string name="top_10">Top 10!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
