@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Class22BAndAssignement2">
         <activity
-            android:name=".Activity_TopTen"
+            android:name=".activities.TopTen_Activity"
             android:exported="false" />
         <activity
-            android:name=".WelcomePage_activity"
+            android:name=".activities.WelcomePage_Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Game_activity"
+            android:name=".activities.Game_Activity"
             android:exported="true"></activity>
     </application>
 

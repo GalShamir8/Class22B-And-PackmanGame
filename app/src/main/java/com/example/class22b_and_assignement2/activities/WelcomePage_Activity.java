@@ -1,4 +1,4 @@
-package com.example.class22b_and_assignement2;
+package com.example.class22b_and_assignement2.activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,11 +7,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.class22b_and_assignement2.R;
 import com.google.android.material.button.MaterialButton;
 
 import common.eGameType;
 
-public class WelcomePage_activity extends AppCompatActivity {
+public class WelcomePage_Activity extends AppCompatActivity {
 
     private MaterialButton main_BTN_controlsGame;
     private MaterialButton main_BTN_sensorsGame;
@@ -56,7 +57,7 @@ public class WelcomePage_activity extends AppCompatActivity {
 
         if (gameType != eGameType.TOP_TEN){
             data.putInt("gameType", gameType.ordinal());
-            Intent newIntent = new Intent(this, Game_activity.class);
+            Intent newIntent = new Intent(this, Game_Activity.class);
             newIntent.putExtras(data);
             startActivity(newIntent);
         }

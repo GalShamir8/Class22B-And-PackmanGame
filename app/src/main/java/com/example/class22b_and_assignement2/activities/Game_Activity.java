@@ -1,4 +1,4 @@
-package com.example.class22b_and_assignement2;
+package com.example.class22b_and_assignement2.activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.class22b_and_assignement2.R;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Timer;
@@ -34,7 +35,7 @@ import common.eDirection;
 import common.eTimerStatus;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class Game_activity extends AppCompatActivity {
+public class Game_Activity extends AppCompatActivity {
     private static final String ERR_TAG = "ERROR";
     /* lives display */
     private  ImageView[] hearts;
