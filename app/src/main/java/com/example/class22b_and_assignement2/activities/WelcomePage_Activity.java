@@ -54,12 +54,15 @@ public class WelcomePage_Activity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void openActivity(eGameType gameType) {
-
+        Intent newIntent;
         if (gameType != eGameType.TOP_TEN){
             data.putInt("gameType", gameType.ordinal());
-            Intent newIntent = new Intent(this, Game_Activity.class);
-            newIntent.putExtras(data);
-            startActivity(newIntent);
+            newIntent = new Intent(this, Game_Activity.class);
+
+        }else{
+            newIntent = new Intent(this, TopTen_Activity.class);
         }
+        newIntent.putExtras(data);
+        startActivity(newIntent);
     }
 }
