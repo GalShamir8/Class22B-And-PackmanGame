@@ -64,7 +64,7 @@ public class Game_activity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         gameType = eGameType.values()[bundle.getInt("gameType", 0)];
         if (gameType == eGameType.CONTROLS) {
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_controls);
         }else if(gameType == eGameType.SENSORS) {
             setContentView(R.layout.activity_sensors);
         }
@@ -394,5 +394,11 @@ public class Game_activity extends AppCompatActivity {
         if (gameType == eGameType.SENSORS) {
             sensorManager.unregisterListener(accSensorEventListener);
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        // TODO: 21/04/2022 add game save + reset old values
+        super.onBackPressed();
     }
 }
