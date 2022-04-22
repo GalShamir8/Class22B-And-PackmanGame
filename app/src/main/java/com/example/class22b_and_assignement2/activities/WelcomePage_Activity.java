@@ -108,8 +108,6 @@ public class WelcomePage_Activity extends AppCompatActivity {
         String name = main_EDT_name.getText().toString();
         if (name.isEmpty()){
             setStatus(View.VISIBLE, "Name is required", Color.RED);
-        }else if(!isUniqueName()){
-            setStatus(View.VISIBLE, "Name is already taken try new one", Color.RED);
         }else{
             User user = new User();
             user.setName(name);
@@ -120,10 +118,6 @@ public class WelcomePage_Activity extends AppCompatActivity {
         }
     }
 
-    private boolean isUniqueName() {
-        // TODO: 22/04/2022  add logic
-        return true;
-    }
 
     private void setStatus(int visibility, String message, int color) {
         main_LBL_status.setVisibility(visibility);
