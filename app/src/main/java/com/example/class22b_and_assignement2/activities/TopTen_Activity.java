@@ -17,6 +17,11 @@ public class TopTen_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_topten);
         data = getIntent().getExtras();
         loadFragmentUsers();
+        loadFragmentMap();
+    }
+
+    private void loadFragmentMap() {
+        // TODO: 22/04/2022 add this when map implemented
     }
 
     private void loadFragmentUsers() {

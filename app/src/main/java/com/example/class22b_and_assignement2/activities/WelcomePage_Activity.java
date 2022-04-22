@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,11 +15,21 @@ import com.example.class22b_and_assignement2.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 import common.eGameState;
 import common.eGameType;
 import models.User;
 
 public class WelcomePage_Activity extends AppCompatActivity {
+    private static final String MY_PREFS_NAME = "GameDateFile";
+    private SharedPreferences sharedPrefs;
+
+    private HashMap<String, User> users;
+
     private EditText main_EDT_name;
     private MaterialButton main_BTN_send;
     private MaterialTextView main_LBL_status;
@@ -40,21 +51,30 @@ public class WelcomePage_Activity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void initPage() {
+        if (data == null){
+            data = new Bundle();
+        }
         setData();
         setViews();
     }
 
     private void setData() {
-        if (data == null){
-            data = new Bundle();
-        }else{
-            updateData();
+        sharedPrefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        if (users == null) {
+            users = new HashMap<>();
+            if (sharedPrefs != null){
+                Set<String> usersData = sharedPrefs.getStringSet("usersData", null);
+                if (usersData != null) {
+                    for (String userJson : usersData) {
+                        User user = User.fromJsonToUser(userJson);
+                        users.put(user.getName(), user);
+                    }
+                    data.putStringArrayList("usersData", new ArrayList<>(usersData));
+                }
+            }
         }
     }
 
-    private void updateData() {
-        // TODO: 19/04/2022 update data upon assignment requirements 
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setViews() {
@@ -109,8 +129,12 @@ public class WelcomePage_Activity extends AppCompatActivity {
         if (name.isEmpty()){
             setStatus(View.VISIBLE, "Name is required", Color.RED);
         }else{
-            User user = new User();
-            user.setName(name);
+            User user = users.get(name);
+            if (user == null){
+                user = new User();
+                user.setName(name);
+                users.put(name, user);
+            }
             data.putString("user", user.userToJson());
             setStatus(View.VISIBLE, "logged in successfully", Color.GREEN);
             gameState = eGameState.LOGGED_IN;
@@ -137,5 +161,21 @@ public class WelcomePage_Activity extends AppCompatActivity {
         }
         newIntent.putExtras(data);
         startActivity(newIntent);
+    }
+
+    @Override
+    protected void onPause() {
+        saveGame();
+        super.onPause();
+    }
+
+    private void saveGame() {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        Set<String> usersData = new HashSet<>();
+        for (User user: users.values()){
+            usersData.add(user.userToJson());
+        }
+        editor.putStringSet("usersData", usersData);
+        editor.apply();
     }
 }

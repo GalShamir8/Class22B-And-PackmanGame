@@ -2,6 +2,7 @@ package controllers;
 
 import common.eDirection;
 import models.Pacmanable;
+import models.User;
 
 public interface ControllerPacmanable {
     long COUNT_DOWN_INTERVAL = 1000;
@@ -61,7 +62,7 @@ public interface ControllerPacmanable {
     void handleCollision() throws Exception;
     void executeMove();
 
-    void finishGame();
+    User finishGame();
 
     eDirection handleSensors(float[] sensorValues);
 
@@ -84,5 +85,9 @@ public interface ControllerPacmanable {
      * @return  True / False corresponding the condition
      */
     boolean isTrophyCollision();
+
+    void setUser(User user);
+
+    User getUser();
 }
 

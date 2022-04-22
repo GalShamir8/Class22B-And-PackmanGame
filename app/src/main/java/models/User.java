@@ -4,12 +4,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
-import java.io.NotSerializableException;
-import java.io.Serializable;
-
-public class User {
+public class User implements Comparable<User>{
     private String name;
     private UserLocation location;
     private int score;
@@ -45,7 +40,9 @@ public class User {
     }
 
     public void setScore(int score) {
-        this.score = score;
+        if (score > this.score) {
+            this.score = score;
+        }
     }
 
     public String userToJson(){
@@ -58,14 +55,24 @@ public class User {
         return "";
     }
 
-    public User fromJsonToUser(String json){
+    public static User fromJsonToUser(String json){
         User user = new User();
         try{
             Gson gson = new Gson();
-            user = gson.fromJson(json, this.getClass());
+            user = gson.fromJson(json, User.class);
         }catch (Exception e){
             Log.e("ERROR","Failed to parse from json to User\n" + e.getMessage());
         }
         return user;
+    }
+
+    @Override
+    public int compareTo(User user) {
+        if (user.score > this.score){
+            return -1;
+        }else if(user.score < this.score){
+            return 1;
+        }
+        return  0;
     }
 }

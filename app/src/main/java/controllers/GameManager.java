@@ -3,6 +3,7 @@ package controllers;
 import common.eDirection;
 import models.Pacmanable;
 import models.Player;
+import models.User;
 
 
 public class GameManager implements ControllerPacmanable{
@@ -13,6 +14,8 @@ public class GameManager implements ControllerPacmanable{
     private static final int LIVES = 3;
     public static final int[] PLAYER_START_INDEX = {ROWS - 1, COLUMNS/2};
     public static final int[] RIVAL_START_INDEX = {0, COLUMNS - 1};
+
+    private User user;
 
     private int score = 0;
     private int lives = LIVES;
@@ -183,8 +186,12 @@ public class GameManager implements ControllerPacmanable{
     }
 
     @Override
-    public void finishGame() {
+    public User finishGame() {
+        user.setScore(score);
+        User user = this.user;
+        // TODO: 22/04/2022 add getUserLocation 
         gameManagerInstance = new GameManager();
+        return user;
     }
 
     @Override
@@ -238,6 +245,16 @@ public class GameManager implements ControllerPacmanable{
     public boolean isTrophyCollision() {
         int[] playerPos = player.getPosition();
         return playerPos[0] == trophyPos[0] && playerPos[1] == trophyPos[1];
+    }
+
+    @Override
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public User getUser() {
+        return user;
     }
 
     private boolean isAddScore() {

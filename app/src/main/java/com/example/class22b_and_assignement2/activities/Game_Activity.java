@@ -33,10 +33,13 @@ import controllers.GameManager;
 import models.Pacmanable;
 import common.eDirection;
 import common.eTimerStatus;
+import models.User;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Game_Activity extends AppCompatActivity {
     private static final String ERR_TAG = "ERROR";
+
+    Bundle data;
     /* lives display */
     private  ImageView[] hearts;
     /* background display */
@@ -62,8 +65,12 @@ public class Game_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
-        gameType = eGameType.values()[bundle.getInt("gameType", 0)];
+        data = getIntent().getExtras();
+
+        String userJson = data.getString("user");
+        gameManager.setUser(User.fromJsonToUser(userJson));
+
+        gameType = eGameType.values()[data.getInt("gameType", 0)];
         if (gameType == eGameType.CONTROLS) {
             setContentView(R.layout.activity_controls);
         }else if(gameType == eGameType.SENSORS) {
@@ -328,7 +335,7 @@ public class Game_Activity extends AppCompatActivity {
 
     private void finishGame(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        gameManager.finishGame();
+        data.putString("user", gameManager.finishGame().userToJson());
         finish();
     }
 

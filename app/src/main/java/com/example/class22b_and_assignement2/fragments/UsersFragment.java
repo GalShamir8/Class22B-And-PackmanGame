@@ -14,6 +14,9 @@ import com.example.class22b_and_assignement2.R;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import models.User;
 
 public class UsersFragment extends Fragment {
     private static final int NUM_OF_COLS = 3;
@@ -21,14 +24,34 @@ public class UsersFragment extends Fragment {
     private TableLayout users_TBL_usersTable;
     private ArrayList<TableRow> tableRows;
     private View view;
+    private ArrayList<User> topTenUsers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_users, container, false);
+        topTenUsers = new ArrayList<>();
+
+        setTopTen();
         setViews();
         addTableRows();
         return view;
+    }
+
+    private void setTopTen() {
+        Bundle data = getArguments();
+        if (data != null) {
+            ArrayList<String> usersJson = data.getStringArrayList("usersData");
+            ArrayList<User> usersData = new ArrayList<>();
+            for (String userJson: usersJson){
+                usersData.add(User.fromJsonToUser(userJson));
+            }
+            Collections.sort(usersData);
+            int iteration = Math.min(NUM_OF_ROWS, usersData.size());
+            for (int i = 0; i < iteration; i++) {
+                topTenUsers.add(usersData.get(i));
+            }
+        }
     }
 
     private void addTableRows() {
@@ -36,20 +59,23 @@ public class UsersFragment extends Fragment {
             tableRows = new ArrayList<>();
         }
         setHeaders();
-
-        for (int i = 0; i < NUM_OF_ROWS; i++) {
+        for(User user: this.topTenUsers){
             TableRow tableRow = new TableRow(view.getContext());
-            for (int j = 0; j < NUM_OF_COLS; j++) {
-                // TODO: 21/04/2022 add get data from bundle
-                MaterialTextView colData = new MaterialTextView(view.getContext());
-                colData.setText("gal");
-                colData.setTextSize(20);
-                colData.setPadding(16,16,16,16);
+            MaterialTextView nameColData = new MaterialTextView(view.getContext());
+            MaterialTextView scoreColData = new MaterialTextView(view.getContext());
+            MaterialTextView locationColData = new MaterialTextView(view.getContext());
 
-                tableRow.addView(colData);
-            }
+            nameColData.setText(user.getName());
+            scoreColData.setText("" + user.getScore());
+//            locationColData.setText(user.getLocation().getAddressName());
+
+            tableRow.addView(nameColData);
+            tableRow.addView(scoreColData);
+            tableRow.addView(locationColData);
+
             users_TBL_usersTable.addView(tableRow);
         }
+
     }
 
     private void setHeaders() {

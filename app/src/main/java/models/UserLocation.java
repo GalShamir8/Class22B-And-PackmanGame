@@ -29,4 +29,6 @@ public class UserLocation {
         return latitude;
     }
 
+    public String getAddressName(){ return this.addressName; }
+
 }
