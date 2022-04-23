@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -69,10 +70,18 @@ public class WelcomePage_Activity extends AppCompatActivity {
                         User user = User.fromJsonToUser(userJson);
                         users.put(user.getName(), user);
                     }
-                    data.putStringArrayList("usersData", new ArrayList<>(usersData));
+                    updateUserData();
                 }
             }
         }
+    }
+
+    private void updateUserData() {
+        Set<String> usersData = new HashSet<>();
+        for (User u: users.values()){
+            usersData.add(u.userToJson());
+        }
+        data.putStringArrayList("usersData", new ArrayList<>(usersData));
     }
 
 
@@ -161,6 +170,22 @@ public class WelcomePage_Activity extends AppCompatActivity {
         }
         newIntent.putExtras(data);
         startActivity(newIntent);
+    }
+
+    @Override
+    protected void onResume() {
+        updateData();
+        super.onResume();
+    }
+
+    private void updateData() {
+        String userJson = data.getString("user", "");
+        if (!userJson.isEmpty()) {
+            User user = User.fromJsonToUser(userJson);
+            // update current user details
+            users.put(user.getName(), user);
+            updateUserData();
+        }
     }
 
     @Override

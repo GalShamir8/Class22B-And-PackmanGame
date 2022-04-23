@@ -406,9 +406,9 @@ public class Game_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        // TODO: 21/04/2022 add game save + reset old values
-        super.onBackPressed();
         gameManager.finishGame();
         finish();
+        super.onBackPressed();
+
     }
 }

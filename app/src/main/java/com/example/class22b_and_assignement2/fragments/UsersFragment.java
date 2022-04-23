@@ -66,7 +66,8 @@ public class UsersFragment extends Fragment {
             MaterialTextView locationColData = new MaterialTextView(view.getContext());
 
             nameColData.setText(user.getName());
-            scoreColData.setText("" + user.getScore());
+            scoreColData.setText(String.valueOf(user.getScore()));
+            // TODO: 23/04/2022 add location implementation
 //            locationColData.setText(user.getLocation().getAddressName());
 
             tableRow.addView(nameColData);
