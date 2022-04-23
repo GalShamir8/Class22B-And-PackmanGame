@@ -59,22 +59,31 @@ public class UsersFragment extends Fragment {
             tableRows = new ArrayList<>();
         }
         setHeaders();
-        for(User user: this.topTenUsers){
+        if(topTenUsers.size() == 0){
             TableRow tableRow = new TableRow(view.getContext());
-            MaterialTextView nameColData = new MaterialTextView(view.getContext());
-            MaterialTextView scoreColData = new MaterialTextView(view.getContext());
-            MaterialTextView locationColData = new MaterialTextView(view.getContext());
-
-            nameColData.setText(user.getName());
-            scoreColData.setText(String.valueOf(user.getScore()));
-            // TODO: 23/04/2022 add location implementation
-//            locationColData.setText(user.getLocation().getAddressName());
-
-            tableRow.addView(nameColData);
-            tableRow.addView(scoreColData);
-            tableRow.addView(locationColData);
+            MaterialTextView noUsersTXT = new MaterialTextView(view.getContext());
+            noUsersTXT.setText("No users records yet...");
+            tableRow.addView(noUsersTXT);
 
             users_TBL_usersTable.addView(tableRow);
+        }else {
+            for (User user : this.topTenUsers) {
+                TableRow tableRow = new TableRow(view.getContext());
+                MaterialTextView nameColData = new MaterialTextView(view.getContext());
+                MaterialTextView scoreColData = new MaterialTextView(view.getContext());
+                MaterialTextView locationColData = new MaterialTextView(view.getContext());
+
+                nameColData.setText(user.getName());
+                scoreColData.setText(String.valueOf(user.getScore()));
+                // TODO: 23/04/2022 add location implementation
+                // locationColData.setText(user.getLocation().getAddressName());
+
+                tableRow.addView(nameColData);
+                tableRow.addView(scoreColData);
+                tableRow.addView(locationColData);
+
+                users_TBL_usersTable.addView(tableRow);
+            }
         }
 
     }

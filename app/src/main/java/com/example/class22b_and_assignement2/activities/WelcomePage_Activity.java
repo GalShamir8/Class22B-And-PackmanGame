@@ -97,7 +97,6 @@ public class WelcomePage_Activity extends AppCompatActivity {
             case LOGGED_OFF:
                 main_BTN_controlsGame.setEnabled(false);
                 main_BTN_sensorsGame.setEnabled(false);
-                main_BTN_topTen.setEnabled(false);
                 main_BTN_send.setEnabled(true);
                 main_EDT_name.setEnabled(true);
                 setStatus(View.INVISIBLE, "", 0);
@@ -105,7 +104,6 @@ public class WelcomePage_Activity extends AppCompatActivity {
             case LOGGED_IN:
                 main_BTN_controlsGame.setEnabled(true);
                 main_BTN_sensorsGame.setEnabled(true);
-                main_BTN_topTen.setEnabled(true);
                 main_BTN_send.setEnabled(false);
                 main_EDT_name.setEnabled(false);
                 break;
