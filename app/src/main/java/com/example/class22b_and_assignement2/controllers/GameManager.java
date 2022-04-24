@@ -1,9 +1,9 @@
-package controllers;
+package com.example.class22b_and_assignement2.controllers;
 
-import common.eDirection;
-import models.Pacmanable;
-import models.Player;
-import models.User;
+import com.example.class22b_and_assignement2.common.eDirection;
+import com.example.class22b_and_assignement2.models.Pacmanable;
+import com.example.class22b_and_assignement2.models.Player;
+import com.example.class22b_and_assignement2.models.User;
 
 
 public class GameManager implements ControllerPacmanable{

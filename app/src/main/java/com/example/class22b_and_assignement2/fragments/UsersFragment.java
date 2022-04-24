@@ -16,7 +16,7 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import models.User;
+import com.example.class22b_and_assignement2.models.User;
 
 public class UsersFragment extends Fragment {
     private static final int NUM_OF_ROWS = 10;

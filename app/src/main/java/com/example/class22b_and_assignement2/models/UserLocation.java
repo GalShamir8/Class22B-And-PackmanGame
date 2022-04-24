@@ -1,4 +1,4 @@
-package models;
+package com.example.class22b_and_assignement2.models;
 
 public class UserLocation {
     private String addressName;

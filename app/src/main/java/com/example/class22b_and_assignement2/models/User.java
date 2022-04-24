@@ -1,4 +1,4 @@
-package models;
+package com.example.class22b_and_assignement2.models;
 
 import android.util.Log;
 

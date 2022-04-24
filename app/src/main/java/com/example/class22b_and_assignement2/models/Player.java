@@ -1,6 +1,6 @@
-package models;
+package com.example.class22b_and_assignement2.models;
 
-import common.eDirection;
+import com.example.class22b_and_assignement2.common.eDirection;
 
 public class Player implements Pacmanable {
     private int id;

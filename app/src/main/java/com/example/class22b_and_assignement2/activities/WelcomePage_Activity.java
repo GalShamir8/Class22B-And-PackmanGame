@@ -20,10 +20,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import common.eGameState;
-import common.eGameType;
-import controllers.GameManager;
-import models.User;
+import com.example.class22b_and_assignement2.common.eGameState;
+import com.example.class22b_and_assignement2.common.eGameType;
+import com.example.class22b_and_assignement2.models.User;
+import com.example.class22b_and_assignement2.controllers.GameManager;
+
 
 public class WelcomePage_Activity extends AppCompatActivity {
     private static final String MY_PREFS_NAME = "GameDateFile";

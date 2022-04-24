@@ -1,8 +1,5 @@
 package com.example.class22b_and_assignement2.activities;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.hardware.Sensor;
@@ -20,20 +17,23 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.class22b_and_assignement2.R;
+import com.example.class22b_and_assignement2.controllers.GameManager;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import common.Callable;
-import common.eGameType;
-import controllers.ControllerPacmanable;
-import controllers.GameManager;
-import models.Pacmanable;
-import common.eDirection;
-import common.eTimerStatus;
-import models.User;
+import com.example.class22b_and_assignement2.common.Callable;
+import com.example.class22b_and_assignement2.common.eDirection;
+import com.example.class22b_and_assignement2.common.eGameType;
+import com.example.class22b_and_assignement2.common.eTimerStatus;
+import com.example.class22b_and_assignement2.controllers.ControllerPacmanable;
+import com.example.class22b_and_assignement2.models.Pacmanable;
+import com.example.class22b_and_assignement2.models.User;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Game_Activity extends AppCompatActivity {
@@ -335,6 +335,7 @@ public class Game_Activity extends AppCompatActivity {
 
     private void finishGame(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        data.putString("user", gameManager.finishGame().userToJson());
         finish();
     }
 

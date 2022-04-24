@@ -1,8 +1,8 @@
-package controllers;
+package com.example.class22b_and_assignement2.controllers;
 
-import common.eDirection;
-import models.Pacmanable;
-import models.User;
+import com.example.class22b_and_assignement2.common.eDirection;
+import com.example.class22b_and_assignement2.models.Pacmanable;
+import com.example.class22b_and_assignement2.models.User;
 
 public interface ControllerPacmanable {
     long COUNT_DOWN_INTERVAL = 1000;
