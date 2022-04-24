@@ -22,6 +22,7 @@ import java.util.Set;
 
 import common.eGameState;
 import common.eGameType;
+import controllers.GameManager;
 import models.User;
 
 public class WelcomePage_Activity extends AppCompatActivity {
@@ -170,7 +171,11 @@ public class WelcomePage_Activity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        updateData();
+        GameManager gameManager = (GameManager) GameManager.getInstance();
+        if (gameManager.getUser() != null) {
+            data.putString("user", gameManager.finishGame().userToJson());
+            updateData();
+        }
         super.onResume();
     }
 

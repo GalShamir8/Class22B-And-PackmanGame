@@ -335,7 +335,6 @@ public class Game_Activity extends AppCompatActivity {
 
     private void finishGame(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        data.putString("user", gameManager.finishGame().userToJson());
         finish();
     }
 
@@ -406,9 +405,7 @@ public class Game_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        gameManager.finishGame();
         finish();
         super.onBackPressed();
-
     }
 }
