@@ -19,7 +19,6 @@ import java.util.Collections;
 import models.User;
 
 public class UsersFragment extends Fragment {
-    private static final int NUM_OF_COLS = 3;
     private static final int NUM_OF_ROWS = 10;
     private TableLayout users_TBL_usersTable;
     private ArrayList<TableRow> tableRows;
