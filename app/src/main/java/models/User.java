@@ -69,9 +69,9 @@ public class User implements Comparable<User>{
     @Override
     public int compareTo(User user) {
         if (user.score > this.score){
-            return -1;
-        }else if(user.score < this.score){
             return 1;
+        }else if(user.score < this.score){
+            return -1;
         }
         return  0;
     }
