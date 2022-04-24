@@ -77,6 +77,11 @@ public class UsersFragment extends Fragment {
                 // TODO: 23/04/2022 add location implementation
                 // locationColData.setText(user.getLocation().getAddressName());
 
+                nameColData.setPadding(16,16,16,16 );
+                scoreColData.setPadding(16,16,16,16);
+                // locationColData.setPadding(16,16,16,16);
+
+
                 tableRow.addView(nameColData);
                 tableRow.addView(scoreColData);
                 tableRow.addView(locationColData);
