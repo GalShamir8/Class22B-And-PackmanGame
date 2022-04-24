@@ -171,12 +171,16 @@ public class WelcomePage_Activity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        checkForUpdates();
+        super.onResume();
+    }
+
+    private void checkForUpdates() {
         GameManager gameManager = (GameManager) GameManager.getInstance();
         if (gameManager.getUser() != null) {
             data.putString("user", gameManager.finishGame().userToJson());
             updateData();
         }
-        super.onResume();
     }
 
     private void updateData() {
@@ -187,6 +191,13 @@ public class WelcomePage_Activity extends AppCompatActivity {
             users.put(user.getName(), user);
             updateUserData();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        checkForUpdates();
+        saveGame();
+        super.onStop();
     }
 
     @Override
