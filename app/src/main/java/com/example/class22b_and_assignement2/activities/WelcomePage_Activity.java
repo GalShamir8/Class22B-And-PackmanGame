@@ -4,7 +4,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,25 +11,17 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.class22b_and_assignement2.R;
+import com.example.class22b_and_assignement2.common.Keys;
+import com.example.class22b_and_assignement2.utils.MySharedPrefs;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 import com.example.class22b_and_assignement2.common.eGameState;
 import com.example.class22b_and_assignement2.common.eGameType;
 import com.example.class22b_and_assignement2.models.User;
-import com.example.class22b_and_assignement2.controllers.GameManager;
 
 
 public class WelcomePage_Activity extends AppCompatActivity {
-    private static final String MY_PREFS_NAME = "GameDateFile";
-    private SharedPreferences sharedPrefs;
-
-    private HashMap<String, User> users;
 
     private EditText main_EDT_name;
     private MaterialButton main_BTN_send;
@@ -52,36 +43,11 @@ public class WelcomePage_Activity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void initPage() {
+        MySharedPrefs.init(this);
         if (data == null){
             data = new Bundle();
         }
-        setData();
         setViews();
-    }
-
-    private void setData() {
-        sharedPrefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        if (users == null) {
-            users = new HashMap<>();
-            if (sharedPrefs != null){
-                Set<String> usersData = sharedPrefs.getStringSet("usersData", null);
-                if (usersData != null) {
-                    for (String userJson : usersData) {
-                        User user = User.fromJsonToUser(userJson);
-                        users.put(user.getName(), user);
-                    }
-                    updateUserData();
-                }
-            }
-        }
-    }
-
-    private void updateUserData() {
-        Set<String> usersData = new HashSet<>();
-        for (User u: users.values()){
-            usersData.add(u.userToJson());
-        }
-        data.putStringArrayList("usersData", new ArrayList<>(usersData));
     }
 
 
@@ -136,13 +102,13 @@ public class WelcomePage_Activity extends AppCompatActivity {
         if (name.isEmpty()){
             setStatus(View.VISIBLE, "Name is required", Color.RED);
         }else{
-            User user = users.get(name);
+            User user = MySharedPrefs.getInstance().getUserByName(name);
             if (user == null){
                 user = new User();
                 user.setName(name);
-                users.put(name, user);
             }
-            data.putString("user", user.userToJson());
+
+            data.putString(Keys.USER_KEY, user.userToJson());
             setStatus(View.VISIBLE, "logged in successfully", Color.GREEN);
             gameState = eGameState.LOGGED_IN;
             setState();
@@ -160,7 +126,7 @@ public class WelcomePage_Activity extends AppCompatActivity {
     private void openActivity(eGameType gameType) {
         Intent newIntent;
         if (gameType != eGameType.TOP_TEN){
-            data.putInt("gameType", gameType.ordinal());
+            data.putInt(Keys.GAME_TYPE_KEY, gameType.ordinal());
             newIntent = new Intent(this, Game_Activity.class);
 
         }else{
@@ -170,50 +136,4 @@ public class WelcomePage_Activity extends AppCompatActivity {
         startActivity(newIntent);
     }
 
-    @Override
-    protected void onResume() {
-        checkForUpdates();
-        super.onResume();
-    }
-
-    private void checkForUpdates() {
-        GameManager gameManager = (GameManager) GameManager.getInstance();
-        if (gameManager.getUser() != null) {
-            data.putString("user", gameManager.finishGame().userToJson());
-            updateData();
-        }
-    }
-
-    private void updateData() {
-        String userJson = data.getString("user", "");
-        if (!userJson.isEmpty()) {
-            User user = User.fromJsonToUser(userJson);
-            // update current user details
-            users.put(user.getName(), user);
-            updateUserData();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        checkForUpdates();
-        saveGame();
-        super.onStop();
-    }
-
-    @Override
-    protected void onPause() {
-        saveGame();
-        super.onPause();
-    }
-
-    private void saveGame() {
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        Set<String> usersData = new HashSet<>();
-        for (User user: users.values()){
-            usersData.add(user.userToJson());
-        }
-        editor.putStringSet("usersData", usersData);
-        editor.apply();
-    }
 }

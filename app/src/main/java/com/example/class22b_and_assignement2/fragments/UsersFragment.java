@@ -11,6 +11,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.class22b_and_assignement2.R;
+import com.example.class22b_and_assignement2.utils.MySharedPrefs;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
@@ -37,18 +38,28 @@ public class UsersFragment extends Fragment {
         return view;
     }
 
+//    private void setTopTen() {
+//        Bundle data = getArguments();
+//        if (data != null) {
+//            ArrayList<String> usersJson = data.getStringArrayList("usersData");
+//            ArrayList<User> usersData = new ArrayList<>();
+//            for (String userJson: usersJson){
+//                usersData.add(User.fromJsonToUser(userJson));
+//            }
+//            Collections.sort(usersData);
+//            int iteration = Math.min(NUM_OF_ROWS, usersData.size());
+//            for (int i = 0; i < iteration; i++) {
+//                topTenUsers.add(usersData.get(i));
+//            }
+//        }
+//    }
     private void setTopTen() {
-        Bundle data = getArguments();
-        if (data != null) {
-            ArrayList<String> usersJson = data.getStringArrayList("usersData");
-            ArrayList<User> usersData = new ArrayList<>();
-            for (String userJson: usersJson){
-                usersData.add(User.fromJsonToUser(userJson));
-            }
-            Collections.sort(usersData);
-            int iteration = Math.min(NUM_OF_ROWS, usersData.size());
-            for (int i = 0; i < iteration; i++) {
-                topTenUsers.add(usersData.get(i));
+        ArrayList <User> users = MySharedPrefs.getInstance().getUsersData();
+        if (users != null){
+            Collections.sort(users);
+            int iterationLength = Math.min(NUM_OF_ROWS, users.size());
+            for (int i = 0; i < iterationLength; i++) {
+                topTenUsers.add(users.get(i));
             }
         }
     }
@@ -62,6 +73,7 @@ public class UsersFragment extends Fragment {
             TableRow tableRow = new TableRow(view.getContext());
             MaterialTextView noUsersTXT = new MaterialTextView(view.getContext());
             noUsersTXT.setText("No users records yet...");
+            noUsersTXT.setPadding(16, 16, 16, 16);
             tableRow.addView(noUsersTXT);
 
             users_TBL_usersTable.addView(tableRow);

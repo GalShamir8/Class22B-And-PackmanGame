@@ -62,7 +62,7 @@ public interface ControllerPacmanable {
     void handleCollision() throws Exception;
     void executeMove();
 
-    User finishGame();
+    void finishGame();
 
     eDirection handleSensors(float[] sensorValues);
 

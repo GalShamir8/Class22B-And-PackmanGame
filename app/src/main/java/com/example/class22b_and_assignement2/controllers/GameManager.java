@@ -4,6 +4,7 @@ import com.example.class22b_and_assignement2.common.eDirection;
 import com.example.class22b_and_assignement2.models.Pacmanable;
 import com.example.class22b_and_assignement2.models.Player;
 import com.example.class22b_and_assignement2.models.User;
+import com.example.class22b_and_assignement2.utils.MySharedPrefs;
 
 
 public class GameManager implements ControllerPacmanable{
@@ -186,12 +187,11 @@ public class GameManager implements ControllerPacmanable{
     }
 
     @Override
-    public User finishGame() {
+    public void finishGame() {
         user.setScore(score);
-        User user = this.user;
-        // TODO: 22/04/2022 add getUserLocation 
+        // TODO: 22/04/2022 add getUserLocation
+        MySharedPrefs.getInstance().updateUserData(user);
         gameManagerInstance = new GameManager();
-        return user;
     }
 
     @Override

@@ -21,6 +21,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.class22b_and_assignement2.R;
+import com.example.class22b_and_assignement2.common.Keys;
 import com.example.class22b_and_assignement2.controllers.GameManager;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -67,10 +68,9 @@ public class Game_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         data = getIntent().getExtras();
 
-        String userJson = data.getString("user");
-        gameManager.setUser(User.fromJsonToUser(userJson));
+        gameManager.setUser(User.fromJsonToUser(data.getString(Keys.USER_KEY)));
 
-        gameType = eGameType.values()[data.getInt("gameType", 0)];
+        gameType = eGameType.values()[data.getInt(Keys.GAME_TYPE_KEY, 0)];
         if (gameType == eGameType.CONTROLS) {
             setContentView(R.layout.activity_controls);
         }else if(gameType == eGameType.SENSORS) {
@@ -334,8 +334,10 @@ public class Game_Activity extends AppCompatActivity {
     }
 
     private void finishGame(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        data.putString("user", gameManager.finishGame().userToJson());
+        if (!message.isEmpty()) {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        }
+        gameManager.finishGame();
         finish();
     }
 
@@ -370,6 +372,7 @@ public class Game_Activity extends AppCompatActivity {
         super.onStop();
         stopTimer();
         timerStatus = eTimerStatus.STOP;
+        gameManager.finishGame();
     }
 
     private void stopTimer() {
@@ -406,7 +409,8 @@ public class Game_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        finish();
         super.onBackPressed();
+        gameManager.finishGame();
+        finish();
     }
 }
