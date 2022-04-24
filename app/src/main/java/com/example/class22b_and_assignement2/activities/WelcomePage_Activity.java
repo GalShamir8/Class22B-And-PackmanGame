@@ -37,7 +37,6 @@ public class WelcomePage_Activity extends AppCompatActivity {
 
     private MaterialButton main_BTN_controlsGame;
     private MaterialButton main_BTN_sensorsGame;
-    private MaterialButton main_BTN_topTen;
 
     private eGameState gameState = eGameState.LOGGED_OFF;
     private Bundle data = null;
@@ -124,7 +123,7 @@ public class WelcomePage_Activity extends AppCompatActivity {
     private void setGameOpt() {
         main_BTN_controlsGame = findViewById(R.id.main_BTN_controlsGame);
         main_BTN_sensorsGame = findViewById(R.id.main_BTN_sensorsGame);
-        main_BTN_topTen = findViewById(R.id.main_BTN_topTen);
+        MaterialButton main_BTN_topTen = findViewById(R.id.main_BTN_topTen);
 
         main_BTN_controlsGame.setOnClickListener(e -> openActivity(eGameType.CONTROLS));
         main_BTN_sensorsGame.setOnClickListener(e -> openActivity(eGameType.SENSORS));
