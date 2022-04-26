@@ -372,7 +372,7 @@ public class Game_Activity extends AppCompatActivity {
         super.onStop();
         stopTimer();
         timerStatus = eTimerStatus.STOP;
-        gameManager.finishGame();
+        finishGame("");
     }
 
     private void stopTimer() {
@@ -410,7 +410,7 @@ public class Game_Activity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        gameManager.finishGame();
+        finishGame("");
         finish();
     }
 }
