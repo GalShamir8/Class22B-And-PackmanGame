@@ -10,6 +10,11 @@ public class UserLocation {
         setLatitude(0);
         setAddressName("UNKNOWN");
     }
+    public UserLocation(double longitude, double latitude) {
+        setLongitude(longitude);
+        setLatitude(latitude);
+        setAddressName("UNKNOWN");
+    }
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
