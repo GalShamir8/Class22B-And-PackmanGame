@@ -12,6 +12,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.class22b_and_assignement2.R;
+import com.example.class22b_and_assignement2.common.MapCallback;
 import com.example.class22b_and_assignement2.models.UserLocation;
 import com.example.class22b_and_assignement2.utils.MySharedPrefs;
 import com.google.android.material.textview.MaterialTextView;
@@ -27,6 +28,7 @@ public class UsersFragment extends Fragment {
     private ArrayList<TableRow> tableRows;
     private View view;
     private ArrayList<User> topTenUsers;
+    private MapCallback mapCallback = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,7 +93,12 @@ public class UsersFragment extends Fragment {
     }
 
     private void handleLocationClick(UserLocation location) {
-        // TODO: 26/04/2022 add implementation 
+        mapCallback.addMarkerToMap(location.getLongitude(),
+                location.getLatitude(), location.getAddressName());
+    }
+
+    public void registerMapCallback(MapCallback callback){
+        this.mapCallback = callback;
     }
 
     private void setHeaders() {

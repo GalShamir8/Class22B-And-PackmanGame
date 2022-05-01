@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
+import com.example.class22b_and_assignement2.MapsFragment;
 import com.example.class22b_and_assignement2.R;
+import com.example.class22b_and_assignement2.common.MapCallback;
 import com.example.class22b_and_assignement2.fragments.UsersFragment;
 
 public class TopTen_Activity extends AppCompatActivity {
+    private MapsFragment mapsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +22,16 @@ public class TopTen_Activity extends AppCompatActivity {
     }
 
     private void loadFragmentMap() {
-        // TODO: 22/04/2022 add this when map implemented
+        mapsFragment = new MapsFragment();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.topTen_map, mapsFragment).commit();
     }
 
     private void loadFragmentUsers() {
-        Fragment usersFragment = new UsersFragment();
+        UsersFragment usersFragment = new UsersFragment();
+        usersFragment.registerMapCallback((lon, lat, addressName) ->
+                mapsFragment.addMarkerToMap(lon, lat, addressName));
+
         getSupportFragmentManager().beginTransaction().
                 replace(R.id.topTen_scroll, usersFragment).commit();
     }
