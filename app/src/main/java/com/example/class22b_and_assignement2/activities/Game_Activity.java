@@ -1,11 +1,16 @@
 package com.example.class22b_and_assignement2.activities;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.class22b_and_assignement2.R;
 import com.example.class22b_and_assignement2.common.Keys;
@@ -53,6 +59,9 @@ public class Game_Activity extends AppCompatActivity {
 
     private eGameType gameType;
 
+    private LocationManager mLocationManager;
+    private LocationListener mLocationListener;
+
     /* sensors manager */
     private SensorManager sensorManager;
     private Sensor sensor;
@@ -80,6 +89,8 @@ public class Game_Activity extends AppCompatActivity {
     }
 
     private void initUI() {
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mLocationListener = location -> handleUserLocation();
         setViews();
         renderGrid();
     }
@@ -334,11 +345,44 @@ public class Game_Activity extends AppCompatActivity {
     }
 
     private void finishGame(String message) {
+        handleUserLocation();
         if (!message.isEmpty()) {
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
         gameManager.finishGame();
         finish();
+    }
+
+    private void handleUserLocation() {
+        double lon = 0;
+        double lat = 0;
+
+        int fineLocationStatus = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int coarseLocationStatus = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (fineLocationStatus != PackageManager.PERMISSION_GRANTED &&
+                coarseLocationStatus != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    101);
+        }
+
+        boolean isGPSEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) &&
+                mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (isGPSEnabled) {
+            mLocationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+        }
+        Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location != null) {
+            lon = location.getLongitude();
+            lat = location.getLatitude();
+        }
+        gameManager.setUserLocation(lon, lat);
     }
 
     @Override

@@ -89,5 +89,7 @@ public interface ControllerPacmanable {
     void setUser(User user);
 
     User getUser();
+
+    void setUserLocation(double lon, double lat);
 }
 

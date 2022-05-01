@@ -258,6 +258,11 @@ public class GameManager implements ControllerPacmanable{
         return user;
     }
 
+    @Override
+    public void setUserLocation(double lon, double lat) {
+        user.setLocation(new UserLocation(lon, lat));
+    }
+
     private boolean isAddScore() {
         return getRivalNextPos() == RIVAL_START_INDEX && rival.getPosition()[1] == ROWS - 1;
     }

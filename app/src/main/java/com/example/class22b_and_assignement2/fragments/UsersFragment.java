@@ -1,5 +1,6 @@
 package com.example.class22b_and_assignement2.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.class22b_and_assignement2.R;
+import com.example.class22b_and_assignement2.models.UserLocation;
 import com.example.class22b_and_assignement2.utils.MySharedPrefs;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -37,22 +39,6 @@ public class UsersFragment extends Fragment {
         addTableRows();
         return view;
     }
-
-//    private void setTopTen() {
-//        Bundle data = getArguments();
-//        if (data != null) {
-//            ArrayList<String> usersJson = data.getStringArrayList("usersData");
-//            ArrayList<User> usersData = new ArrayList<>();
-//            for (String userJson: usersJson){
-//                usersData.add(User.fromJsonToUser(userJson));
-//            }
-//            Collections.sort(usersData);
-//            int iteration = Math.min(NUM_OF_ROWS, usersData.size());
-//            for (int i = 0; i < iteration; i++) {
-//                topTenUsers.add(usersData.get(i));
-//            }
-//        }
-//    }
     private void setTopTen() {
         ArrayList <User> users = MySharedPrefs.getInstance().getUsersData();
         if (users != null){
@@ -86,14 +72,14 @@ public class UsersFragment extends Fragment {
 
                 nameColData.setText(user.getName());
                 scoreColData.setText(String.valueOf(user.getScore()));
-                // TODO: 23/04/2022 add location implementation
-                // locationColData.setText(user.getLocation().getAddressName());
+                locationColData.setText(user.getLocation().getAddressName());
 
                 nameColData.setPadding(16,16,16,16 );
                 scoreColData.setPadding(16,16,16,16);
-                // locationColData.setPadding(16,16,16,16);
-
-
+                locationColData.setPadding(16,16,16,16);
+                locationColData.setTextColor(Color.BLUE);
+                locationColData.setOnClickListener(e -> handleLocationClick(user.getLocation()));
+                
                 tableRow.addView(nameColData);
                 tableRow.addView(scoreColData);
                 tableRow.addView(locationColData);
@@ -102,6 +88,10 @@ public class UsersFragment extends Fragment {
             }
         }
 
+    }
+
+    private void handleLocationClick(UserLocation location) {
+        // TODO: 26/04/2022 add implementation 
     }
 
     private void setHeaders() {
