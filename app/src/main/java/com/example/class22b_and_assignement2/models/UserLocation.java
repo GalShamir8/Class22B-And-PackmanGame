@@ -10,10 +10,10 @@ public class UserLocation {
         setLatitude(0);
         setAddressName("UNKNOWN");
     }
-    public UserLocation(double longitude, double latitude) {
+    public UserLocation(double longitude, double latitude, String addressName) {
         setLongitude(longitude);
         setLatitude(latitude);
-        setAddressName("UNKNOWN");
+        setAddressName(addressName);
     }
 
     public void setLongitude(double longitude) {

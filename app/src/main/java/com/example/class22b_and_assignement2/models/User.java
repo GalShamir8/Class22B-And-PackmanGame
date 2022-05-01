@@ -1,8 +1,9 @@
 package com.example.class22b_and_assignement2.models;
 
-import android.util.Log;
 
+import android.util.Log;
 import com.google.gson.Gson;
+
 
 public class User implements Comparable<User>{
     private String name;
@@ -34,6 +35,7 @@ public class User implements Comparable<User>{
     public void setLocation(UserLocation location) {
         this.location = location;
     }
+
 
     public int getScore() {
         return score;

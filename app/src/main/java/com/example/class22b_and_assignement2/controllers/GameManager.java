@@ -259,8 +259,8 @@ public class GameManager implements ControllerPacmanable{
     }
 
     @Override
-    public void setUserLocation(double lon, double lat) {
-        user.setLocation(new UserLocation(lon, lat));
+    public void setUserLocation(double lon, double lat, String addressName) {
+        user.setLocation(new UserLocation(lon, lat, addressName));
     }
 
     private boolean isAddScore() {

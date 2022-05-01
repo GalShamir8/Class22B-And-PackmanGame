@@ -8,6 +8,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -31,6 +33,9 @@ import com.example.class22b_and_assignement2.common.Keys;
 import com.example.class22b_and_assignement2.controllers.GameManager;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -353,7 +358,7 @@ public class Game_Activity extends AppCompatActivity {
         finish();
     }
 
-    private void handleUserLocation() {
+    private void handleUserLocation(){
         double lon = 0;
         double lat = 0;
 
@@ -382,7 +387,17 @@ public class Game_Activity extends AppCompatActivity {
             lon = location.getLongitude();
             lat = location.getLatitude();
         }
-        gameManager.setUserLocation(lon, lat);
+        String addressName = "";
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addList = geocoder.getFromLocation(lat, lon, 1);
+            Address add = addList.get(0);
+            addressName = add.getCountryName();
+        }catch (IOException e){
+            addressName = "LOCATION";
+        }
+
+        gameManager.setUserLocation(lon, lat, addressName);
     }
 
     @Override

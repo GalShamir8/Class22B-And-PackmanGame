@@ -90,6 +90,6 @@ public interface ControllerPacmanable {
 
     User getUser();
 
-    void setUserLocation(double lon, double lat);
+    void setUserLocation(double lon, double lat, String addressName);
 }
 
