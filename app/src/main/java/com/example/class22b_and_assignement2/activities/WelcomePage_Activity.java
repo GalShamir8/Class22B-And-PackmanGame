@@ -9,7 +9,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.class22b_and_assignement2.R;
 import com.example.class22b_and_assignement2.common.Keys;
 import com.example.class22b_and_assignement2.utils.MySharedPrefs;
@@ -22,6 +24,7 @@ import com.example.class22b_and_assignement2.models.User;
 
 
 public class WelcomePage_Activity extends AppCompatActivity {
+    private static final String BACKGROUND_URL = "https://static.wikia.nocookie.net/marvel_dc/images/4/4b/Batman_Vol_3_86_Textless.jpg/revision/latest?cb=20200502132734";
 
     private EditText main_EDT_name;
     private MaterialButton main_BTN_send;
@@ -53,6 +56,8 @@ public class WelcomePage_Activity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setViews() {
+        ImageView main_IMG_background = findViewById(R.id.main_IMG_background);
+        Glide.with(this).load(BACKGROUND_URL).into(main_IMG_background);
         setForm();
         setGameOpt();
         setState();
