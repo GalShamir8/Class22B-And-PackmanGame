@@ -1,13 +1,11 @@
 package com.example.class22b_and_assignement2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
-import com.example.class22b_and_assignement2.MapsFragment;
+import com.example.class22b_and_assignement2.fragments.MapsFragment;
 import com.example.class22b_and_assignement2.R;
-import com.example.class22b_and_assignement2.common.MapCallback;
 import com.example.class22b_and_assignement2.fragments.UsersFragment;
 
 public class TopTen_Activity extends AppCompatActivity {

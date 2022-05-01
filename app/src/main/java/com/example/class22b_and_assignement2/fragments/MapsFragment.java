@@ -1,4 +1,4 @@
-package com.example.class22b_and_assignement2;
+package com.example.class22b_and_assignement2.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.class22b_and_assignement2.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -19,12 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsFragment extends Fragment {
     private GoogleMap mapView;
 
-    private OnMapReadyCallback callback = googleMap -> {
-        mapView = googleMap;
-        LatLng sydney = new LatLng(-34, 151);
-        mapView.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mapView.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    };
+    private OnMapReadyCallback callback = googleMap -> { mapView = googleMap; };
 
     @Nullable
     @Override
