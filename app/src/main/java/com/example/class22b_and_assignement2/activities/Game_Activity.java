@@ -468,8 +468,8 @@ public class Game_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        super.onBackPressed();
         finishGame("");
         finish();
+        super.onBackPressed();
     }
 }
