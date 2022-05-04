@@ -260,7 +260,7 @@ public class Game_Activity extends AppCompatActivity {
 
     private void handleTrophy() {
         if (!gameManager.getTrophyFlag()){
-            if(clockCounter % 15 == 0){
+            if(clockCounter % 12 == 0){
                 gameManager.setTrophyFlag(true);
                 gameManager.setTrophyPos();
                 setCountDownTimer(
