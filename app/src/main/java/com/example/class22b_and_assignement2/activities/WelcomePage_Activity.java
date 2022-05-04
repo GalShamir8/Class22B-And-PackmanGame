@@ -56,11 +56,15 @@ public class WelcomePage_Activity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setViews() {
-        ImageView main_IMG_background = findViewById(R.id.main_IMG_background);
-        Glide.with(this).load(BACKGROUND_URL).into(main_IMG_background);
+        setBackground();
         setForm();
         setGameOpt();
         setState();
+    }
+
+    private void setBackground(){
+        ImageView main_IMG_background = findViewById(R.id.main_IMG_background);
+        Glide.with(this).load(BACKGROUND_URL).into(main_IMG_background);
     }
 
     private void setState() {
