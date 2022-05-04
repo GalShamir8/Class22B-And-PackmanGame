@@ -94,10 +94,14 @@ public class Game_Activity extends AppCompatActivity {
     }
 
     private void initUI() {
-        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        mLocationListener = location -> handleUserLocation();
+        setLocation();
         setViews();
         renderGrid();
+    }
+
+    private void setLocation() {
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mLocationListener = location -> handleUserLocation();
     }
 
     private void setViews() {
@@ -392,7 +396,7 @@ public class Game_Activity extends AppCompatActivity {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addList = geocoder.getFromLocation(lat, lon, 1);
             Address add = addList.get(0);
-            addressName = add.getCountryName();
+            addressName = add.getLocality();
         }catch (IOException e){
             addressName = "LOCATION";
         }
